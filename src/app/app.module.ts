@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +10,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
@@ -48,6 +46,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
+import { AuthGuard } from './core/guards';
 
 @NgModule({
   exports: [
@@ -81,7 +80,7 @@ import { AppRoutes } from './app.routing';
     MatToolbarModule,
     MatTooltipModule,
     MatNativeDateModule
-  ]
+  ],
 })
 export class MaterialModule {}
 
@@ -94,7 +93,6 @@ export class MaterialModule {}
           useHash: true
         }),
         HttpClientModule,
-
         MaterialModule,
         SidebarModule,
         NavbarModule,
@@ -107,7 +105,8 @@ export class MaterialModule {}
         AuthLayoutComponent
     ],
     providers : [
-      MatNativeDateModule
+      MatNativeDateModule,
+      AuthGuard
     ],
     bootstrap:    [ AppComponent ]
 })

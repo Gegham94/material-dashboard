@@ -1,4 +1,4 @@
-<nav #navbar class="navbar navbar-expand-lg navbar-transparent  navbar-absolute">
+<nav #navbar class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <div class="navbar-minimize">
@@ -16,6 +16,7 @@
       <span class="navbar-toggler-icon icon-bar"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
+      <button *ngIf="isVisibleCreateNewCategoryButton" mat-raised-button class="btn btn-success create-new-category">Create New</button>
       <form class="navbar-form">
         <div class="input-group no-border">
           <input type="text" value="" class="form-control" placeholder="Search...">
