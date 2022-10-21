@@ -6,7 +6,7 @@
   }
 
   &.navbar-transparent{
-    padding-top: 10px;
+    padding-top: 0;
   }
 
   &.fixed-top{
@@ -16,6 +16,9 @@
     left: auto;
   }
   .collapse{
+    .create-new-category{
+      margin-right: 20px !important;
+    }
     .navbar-nav{
       .nav-item .nav-link{
         position: relative;

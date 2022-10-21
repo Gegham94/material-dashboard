@@ -95,7 +95,7 @@
                 },
                 "fonts": true
               },
-             "outputHashing": "all",
+             "outputHashing": "all"
            }
           }
         },
@@ -208,7 +208,6 @@
       }
     }
   },
-  "defaultProject": "demo",
   "cli": {
     "analytics": false
   }
