@@ -21,7 +21,6 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public dataTable: CategoriesTable;
-  private table: any;
 
   ngOnInit() {
     this.dataTable = {
@@ -75,7 +74,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     setTimeout(()=>{
-      this.table = $('#datatables').DataTable({
+      $('#datatables').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -88,27 +87,29 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
 
+      const table = $('#datatables').DataTable();
+
       // Edit record
-      this.table.on('click', '.edit', function(e) {
+      table.on('click', '.edit', function(e) {
         let $tr = $(this).closest('tr');
         if ($($tr).hasClass('child')) {
           $tr = $tr.prev('.parent');
         }
 
-        var data = this.table.row($tr).data();
+        var data = table.row($tr).data();
         alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
         e.preventDefault();
       });
 
       // Delete a record
-      this.table.on('click', '.remove', function(e) {
+      table.on('click', '.remove', function(e) {
         const $tr = $(this).closest('tr');
-        this.table.row($tr).remove().draw();
+        table.row($tr).remove().draw();
         e.preventDefault();
       });
 
       //Like record
-      this.table.on('click', '.like', function(e) {
+      table.on('click', '.like', function(e) {
         alert('You clicked on Like button');
         e.preventDefault();
       });
@@ -117,7 +118,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   ngOnDestroy(){
-    this.table.destroy();
+    $('#datatables').DataTable().destroy();
     this.shareDataService.set_createNewCategoryButton_visibleStatus(false);
   }
 }
