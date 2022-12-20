@@ -1,14 +1,15 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import { Component, AfterViewInit, ElementRef } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
-import { AuthService } from "src/app/core/services";
+import { AuthService } from "../../core/services/auth.service";
 
 @Component({
   selector: "app-layout",
   templateUrl: "./auth-layout.component.html",
+  styleUrls: ["./auth-layout.component.css"],
 })
-export class AuthLayoutComponent implements OnInit {
+export class AuthLayoutComponent implements AfterViewInit {
   isLogedIn: boolean = false;
   private toggleButton: any;
   private sidebarVisible: boolean;
@@ -23,13 +24,12 @@ export class AuthLayoutComponent implements OnInit {
     this.sidebarVisible = false;
     if (this.authService.currentUserValue) {
       this.isLogedIn = true;
-      this.router.navigate(["dashboard"]);
+      this.router.navigate(['/system/dashboard']);
     } else {
       this.isLogedIn = false;
-      this.router.navigate(["pages/login"]);
     }
   }
-  ngOnInit() {
+  ngAfterViewInit() {
     const navbar: HTMLElement = this.element.nativeElement;
 
     this.toggleButton = navbar.getElementsByClassName("navbar-toggler")[0];
@@ -59,13 +59,9 @@ export class AuthLayoutComponent implements OnInit {
     $layer.setAttribute("class", "close-layer");
 
     if (body.querySelectorAll(".wrapper-full-page")) {
-      document
-        .getElementsByClassName("wrapper-full-page")[0]
-        .appendChild($layer);
+      document.getElementsByClassName("wrapper-full-page")[0].appendChild($layer);
     } else if (body.classList.contains("off-canvas-sidebar")) {
-      document
-        .getElementsByClassName("wrapper-full-page")[0]
-        .appendChild($layer);
+      document.getElementsByClassName("wrapper-full-page")[0].appendChild($layer);
     }
 
     setTimeout(function () {
@@ -73,7 +69,6 @@ export class AuthLayoutComponent implements OnInit {
     }, 100);
 
     $layer.onclick = function () {
-      //asign a function
       body.classList.remove("nav-open");
       this.mobile_menu_visible = 0;
       this.sidebarVisible = false;
@@ -97,8 +92,6 @@ export class AuthLayoutComponent implements OnInit {
     $layer.setAttribute("class", "close-layer");
 
     this.sidebarVisible = false;
-    body.classList.remove("nav-open");
-    // $('html').removeClass('nav-open');
     body.classList.remove("nav-open");
     if ($layer) {
       $layer.remove();

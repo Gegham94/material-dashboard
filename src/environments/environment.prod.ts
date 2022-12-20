@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_URL: "http://localhost:4200/"
+  API_URL: "https://upstart.brainfors.am/api/v1",
 };

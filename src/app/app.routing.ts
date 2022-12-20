@@ -1,85 +1,87 @@
-import { Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from "./core/guards";
 
 import { AdminLayoutComponent } from "./layouts/admin/admin-layout.component";
-import { AuthLayoutComponent } from "./layouts/auth/auth-layout.component";
 
-export const AppRoutes: Routes = [
+export const routes: Routes = [
   {
     path: "",
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: "pages",
-        loadChildren: () =>
-          import("./pages/pages.module").then((m) => m.PagesModule),
-      },
-    ],
+    loadChildren: () => import("./layouts/auth/auth-layout.module").then((m) => m.AuthLayoutModule),
   },
   {
-    path: "",
+    path: "system",
     component: AdminLayoutComponent,
     children: [
       {
         path: "",
-        loadChildren: () =>
-					import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
+        redirectTo: "dashboard",
       },
       {
-        path: "components",
-        loadChildren: () =>
-					import("./components/components.module").then((m) => m.ComponentsModule),
+        path: "dashboard",
+        loadChildren: () => import("./sidebar/dashboard/dashboard.module").then((m) => m.DashboardModule),
+      },
+      {
+        path: "users",
+        loadChildren: () => import("./sidebar/users/users.module").then((m) => m.UsersModule),
       },
       {
         path: "categories",
-        loadChildren: () =>
-					import("./categories/categories.module").then((m) => m.CategoriesModule),
+        loadChildren: () => import("./sidebar/categories/categories.module").then((m) => m.CategoriesModule),
+      },
+      {
+        path: "courses",
+        loadChildren: () => import("./sidebar/courses/courses.module").then((m) => m.CoursesModule),
+      },
+      {
+        path: "users-management",
+        loadChildren: () => import("./sidebar/users-management/users-management.module").then((m) => m.UsersManagementModule),
+      },
+      {
+        path: "components",
+        loadChildren: () => import("./sidebar/components/components.module").then((m) => m.ComponentsModule),
       },
       {
         path: "forms",
-        loadChildren: () =>
-					import("./forms/forms.module").then((m) => m.Forms),
+        loadChildren: () => import("./sidebar/forms/forms.module").then((m) => m.Forms),
       },
       {
         path: "tables",
-        loadChildren: () =>
-          import("./tables/tables.module").then((m) => m.TablesModule),
+        loadChildren: () => import("./sidebar/tables/tables.module").then((m) => m.TablesModule),
       },
       {
         path: "maps",
-        loadChildren: () =>
-          import("./maps/maps.module").then((m) => m.MapsModule),
+        loadChildren: () => import("./sidebar/maps/maps.module").then((m) => m.MapsModule),
       },
       {
         path: "widgets",
-        loadChildren: () =>
-          import("./widgets/widgets.module").then((m) => m.WidgetsModule),
+        loadChildren: () => import("./sidebar/widgets/widgets.module").then((m) => m.WidgetsModule),
       },
       {
         path: "charts",
-        loadChildren: () =>
-          import("./charts/charts.module").then((m) => m.ChartsModule),
+        loadChildren: () => import("./sidebar/charts/charts.module").then((m) => m.ChartsModule),
       },
       {
         path: "calendar",
-        loadChildren: () =>
-          import("./calendar/calendar.module").then((m) => m.CalendarModule),
-      },
-      {
-        path: "",
-        loadChildren: () =>
-          import("./userpage/user.module").then((m) => m.UserModule),
-      },
-      {
-        path: "",
-        loadChildren: () =>
-          import("./timeline/timeline.module").then((m) => m.TimelineModule),
-      },
+        loadChildren: () => import("./sidebar/calendar/calendar.module").then((m) => m.CalendarModule),
+      }
     ],
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: "**",
-    redirectTo: "dashboard",
+    redirectTo: "/system/dashboard",
   },
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabledBlocking',
+      scrollPositionRestoration: 'top',
+      onSameUrlNavigation: 'ignore',
+    }),
+  ],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

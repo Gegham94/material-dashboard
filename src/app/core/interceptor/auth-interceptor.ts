@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -17,33 +16,21 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    if (currentUser && currentUser.auth_key) {
+    if (currentUser && currentUser.api_token) {
       request = request.clone({
         setHeaders: {
-          auth_key: currentUser.auth_key,
+          Authorization: `Bearer ${currentUser.api_token}`,
         },
       });
     }
 
     return next.handle(request).pipe(
-      tap(
-        (res: any) => {
+      tap((res: any) => {
           if (res?.body?.success === false) {
             this.authService.updateCurrentUserValue(null);
-            localStorage.removeItem('currentUser');
-            this.router.navigate(['']);
+            return;
           }
-        },
-        (err: any) => {
-          if (err instanceof HttpErrorResponse) {
-            if (err.status !== 400) {
-              return;
-            }
-            this.authService.updateCurrentUserValue(null);
-            localStorage.removeItem('currentUser');
-            this.router.navigate(['']);
-          }
-        },
+        }
       ),
     );
   }

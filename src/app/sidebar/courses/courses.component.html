@@ -1,0 +1,74 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card_title_part">
+              <div class="card-icon">
+                <i class="material-icons">auto_stories</i>
+              </div>
+            </div>
+            <div class="header_action">
+              <div class="filter">
+                <p-multiSelect
+                  [options]="_types"
+                  [(ngModel)]="selectedTypes"
+                  defaultLabel="Filter by type"
+                  optionLabel="label"
+                  display="chip"
+                  (onChange)="detectTypeChange(selectedTypes)"
+                ></p-multiSelect>
+                <p-multiSelect
+                  [options]="_statuses"
+                  [(ngModel)]="selectedStatuses"
+                  defaultLabel="Filter by status"
+                  optionLabel="label"
+                  display="chip"
+                  (onChange)="detectStatusChange(selectedStatuses)"
+                ></p-multiSelect>
+              <span class="p-input-icon-right">
+                <i class="pi pi-search" (click)="detectSearchSubmit(selectedTypes, selectedStatuses)"></i>
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Search Course"
+                  [(ngModel)]="searchText"
+                  (keypress)="$event.keyCode == 13 ? detectSearchSubmit(selectedTypes, selectedStatuses) : ''"
+                />
+              </span>
+            </div>
+              <button mat-raised-button class="btn btn-success create-new">Create New</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="courses-table" *ngIf="!isLoading; else spinerModel">
+              <ng-container *ngIf="coursesData && coursesData.length > 0; else noDataModel">
+                <ng-container *ngFor="let courseData of coursesData">
+                  <app-course [courseData]="courseData"></app-course>
+                </ng-container>
+              </ng-container>
+              <ng-template #noDataModel>
+                <div class="notData-block">
+                  <p class="notData-text">{{errorMessage}}</p>
+                </div>
+              </ng-template>
+            </div>
+            <ng-template #spinerModel>
+              <div class="loader-block">
+                <mat-spinner></mat-spinner>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pagination
+    *ngIf="coursesData && coursesData.length > 0"
+    [pageIndex]="currentPage - 1"
+    [pageSize]="pageSize"
+    [total]="totalPages"
+    (pageChange)="pageChanged($event)"
+  ></app-pagination>
+</div>

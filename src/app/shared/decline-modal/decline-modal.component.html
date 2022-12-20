@@ -1,0 +1,12 @@
+<div class="content">
+    <i class="material-icons row_action left-0" (click)="closeDialog()">close</i>
+    <form class="example-form" [formGroup]="declineForm">
+        <mat-form-field class="example-full-width">
+            <mat-label>Decline Reason</mat-label>
+            <textarea  formControlName="decline_text" matInput placeholder="Reason"></textarea>
+
+        </mat-form-field>
+        <button mat-raised-button (click)="declineCourse()" class="btn btn-primary btn-sm">Decline</button>
+
+    </form>
+</div>

@@ -1,0 +1,50 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="course">
+                            <div class="image-keeper">
+                                <img class="image" alt="Course Example" src="{{
+      approveCourseData?.cover_image
+        ? approveCourseData?.cover_image
+        : 'assets/img/empty-course-image.png'
+      }}"
+                                />
+                            </div>
+                            <div class="details_keeper">
+                                <div class="col-12 md:col-12 md:col-12">
+                                    <div class="stat">
+                                        <p class="label">Title:<span> {{approveCourseData?.title}}</span></p>
+                                    </div>
+                                    <div class="stat">
+                                        <p class="label">Subtitle:<span> {{approveCourseData?.sub_title}}</span></p>
+
+                                    </div>
+                                    <div class="stat">
+                                        <p class="label">Rating: <span> {{approveCourseData?.rate}}</span></p>
+
+                                    </div>
+                                    <div class="stat">
+                                        <div class="label">
+                                            <p class="value">Price: {{approveCourseData?.price }}
+                                            <span *ngIf="approveCourseData?.currency==='AMD'">֏</span>
+                                            <span *ngIf="approveCourseData?.currency==='USD'">$</span></p>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button mat-raised-button (click)="approveCourse()" class="btn btn-info btn-lg">Approve</button>
+                            <button mat-raised-button (click)="openDecline()" class="btn btn-primary btn-lg">Decline</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

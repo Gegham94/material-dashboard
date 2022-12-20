@@ -1,0 +1,76 @@
+.errors_text {
+  position: absolute;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ea4643;
+  padding: 50px 0 0 0;
+}
+.card-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.card_title_part {
+  width: 100%;
+}
+.card-body {
+  margin-top: 0;
+  padding-top: 0;
+  position: relative;
+}
+.p-inputtext {
+  min-width: 150px;
+}
+.form_field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+.role_label {
+  font-size: 18px;
+  color: #575757;
+}
+.radio_text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #808080;
+}
+.p-field-radiobutton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.password_toggle {
+  cursor: pointer;
+  border: 1px solid rgba(150, 150, 150, 0.74);
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.create_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  width: 100%;
+}
+::ng-deep .p-button{
+  width: 150px !important;
+}
+@media (max-width: 767px) {
+  .form_field {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 600px) {
+  .form_row {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { CategoriesDto } from '../interfaces/categories.interface';
+import { Categories } from '../interfaces/categories.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +14,26 @@ export class CategoriesService {
 
   // GET
   getCategories(){
-    return this.http.get(`${this.API_URL}`)
-  }
-  getCategoryById(id: any){
-    return this.http.get(`${this.API_URL}`)
+    return this.http.get<CategoriesDto>(`${this.API_URL}/categories`);
   }
 
-  // PUT
-  editCategory(body: any){
-    return this.http.put(`${this.API_URL}`, body)
+  // GET BY ID
+  getCategoryById(id: string){
+    return this.http.get<Categories>(`${this.API_URL}/${id}`);
   }
 
   // POST
   createCategory(body: any){
-    this.http.post(`${this.API_URL}`, body)
+    return this.http.post(`${this.API_URL}/categories/create`, body);
+  }
+
+  // POST
+  updateCategory(body: any){
+    return this.http.post(`${this.API_URL}/categories/update`, body);
   }
 
   // DELETE
-  deleteCategory(id: any){
-    return this.http.get(`${this.API_URL}`)
+  deleteCategory(ids: any){
+    return this.http.delete(`${this.API_URL}/delete`, ids);
   }
 }

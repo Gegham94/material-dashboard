@@ -459,9 +459,13 @@
     width: $sidebar-width;
     @include transition (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 
+    .card{
+        min-height: 500px;
+    }
+
     .main-content{
         margin-top: 70px;
-        padding: 30px 15px;
+        padding: 30px 15px 0 15px;
         min-height: calc(100vh - 123px);
     }
 

@@ -1,0 +1,21 @@
+.card-header{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.card_title_part {
+  width: 100%;
+}
+.create-new-category {
+  white-space: nowrap !important;
+  margin-top: 15px !important;
+}
+.card-body{
+  margin-top: 0;
+  padding-top: 0;
+}
+.row_action:hover{
+  background-color: rgba(189, 189, 189, 0.459);
+  opacity: 0.9;
+}

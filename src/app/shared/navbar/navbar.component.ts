@@ -1,10 +1,9 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, Directive, Input, DoCheck } from "@angular/core";
+import { Component, OnInit, Renderer2, ViewChild, ElementRef } from "@angular/core";
 import { ROUTES } from "../.././sidebar/sidebar.component";
-import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from "@angular/router";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { Router, NavigationEnd } from "@angular/router";
+import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
-import { Location, LocationStrategy, PathLocationStrategy } from "@angular/common";
-import { ShareDataService } from '../../core/services';
+import { Location } from "@angular/common";
 
 const misc: any = {
   navbar_menu_visible: 0,
@@ -16,8 +15,9 @@ declare var $: any;
 @Component({
   selector: "app-navbar-cmp",
   templateUrl: "navbar.component.html",
+  styleUrls: ["./navbar.component.css"],
 })
-export class NavbarComponent implements OnInit, DoCheck {
+export class NavbarComponent implements OnInit {
   private listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
@@ -26,16 +26,13 @@ export class NavbarComponent implements OnInit, DoCheck {
   private sidebarVisible: boolean;
   private _router: Subscription;
 
-  public isVisibleCreateNewCategoryButton: boolean = false;
-
   @ViewChild("app-navbar-cmp", { static: false }) button: any;
 
   constructor(
     location: Location,
     private renderer: Renderer2,
     private element: ElementRef,
-    private router: Router,
-    private shareDataService: ShareDataService
+    private router: Router
   ) {
     this.location = location;
     this.nativeElement = element.nativeElement;
@@ -97,9 +94,7 @@ export class NavbarComponent implements OnInit, DoCheck {
       clearInterval(simulateWindowResize);
     }, 1000);
   }
-  ngDoCheck() {
-    this.isVisibleCreateNewCategoryButton = this.shareDataService.get_createNewCategoryButton_visibleStatus();
-  }
+
   ngOnInit() {
     this.listTitles = ROUTES.filter((listTitle) => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
@@ -216,8 +211,6 @@ export class NavbarComponent implements OnInit, DoCheck {
         for (let j = 0; j < this.listTitles[i].children.length; j++) {
           let subtitle =
             this.listTitles[i].path + "/" + this.listTitles[i].children[j].path;
-          // console.log(subtitle)
-          // console.log(titlee)
           if (subtitle === titlee) {
             return this.listTitles[i].children[j].title;
           }

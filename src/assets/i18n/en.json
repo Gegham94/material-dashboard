@@ -1,0 +1,45 @@
+{
+  "global": {
+    "toggle_navigation": "Toggle navigation",
+    "header": {
+      "dashboard": "DASHBOARD",
+      "log_in": "LOGIN"
+    },
+    "log_in": {
+      "log_in": "Log in",
+      "or_ce_classical": "Or Be Classical",
+      "first_name": "First Name...",
+      "email": "Email...",
+      "password": "Password..."
+    },
+    "footer": {
+      "creative_team": "CREATIVE TIM",
+      "about_us": "ABOUT US",
+      "blog": "BLOG",
+      "licenses": "LICENSES",
+      "made_with": "made with",
+      "by_creatice_tim": "by Creative Tim for a better web."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "card_title": "Global Sales by Top Locations",
+    "fix_header": "Fix Header!",
+    "website_views": "Website Views",
+    "last_campaign_performance": "Last Campaign Performance",
+    "campaign_sent_2_days_ago": "campaign sent 2 days ago",
+    "daily_sales": "Daily Sales",
+    "increase_in_today_sales": "increase in today sales.",
+    "updated_4_minutes_ago": "updated 4 minutes ago",
+    "users": "Users",
+    "courses": "Courses"
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "sign_in": "Sign in",
+      "upstart": "'Upstart'",
+      "incorrect-login": "Incorrect Email or Password"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+<div class="course">
+  <div class="image-keeper">
+    <img class="image" alt="Course Example" src="{{
+      courseData.cover_image
+        ? courseData.cover_image
+        : 'assets/img/empty-course-image.png'
+      }}"
+    />
+  </div>
+  <div class="details_keeper">
+    <div class="course_info_row">
+      <div class="stat col">
+        <div class="label">Title:</div>
+        <div class="value" *ngIf="courseData.title; else noItemModel">
+          {{courseData.title}}
+        </div>
+      </div>
+      <div class="stat col">
+        <div class="label">Subtitle:</div>
+        <div class="value" *ngIf="courseData.sub_title; else noItemModel">
+          {{courseData.sub_title}}
+        </div>
+      </div>
+      <div class="stat col">
+        <div class="label">Rating:</div>
+        <div class="value" *ngIf="courseData.rate; else noItemModel">
+          {{courseData.rate | number}}
+        </div>
+      </div>
+      <div class="stat col">
+        <div class="label">Price:</div>
+        <div class="value" *ngIf="courseData.price; else noItemModel">
+          {{courseData.price | number}}
+          <span *ngIf="courseData.currency==='AMD'">֏</span>
+          <span *ngIf="courseData.currency==='USD'">$</span>
+        </div>
+      </div>
+      <div class="stat col">
+        <div class="label">Address:</div>
+        <div class="value" *ngIf="courseData.address; else noItemModel">
+          {{courseData.address}}
+        </div>
+      </div>
+      <ng-template #noItemModel>- - - - - - - - - - -</ng-template>
+    </div>
+  </div>
+  <div class="actions_keeper col">
+    <a
+      *ngIf="courseData.status===2"
+      class="btn btn-link btn-info btn-just-icon approve"
+      pTooltip="Validate Course"
+      tooltipPosition="left"
+      (click)="goCourseVerification(courseData)">
+      <i class="material-icons bounce approve_icon">question_mark</i>
+    </a>
+    <a
+      class="btn btn-link btn-danger btn-just-icon"
+      pTooltip="Delete Course"
+      tooltipPosition="left"
+      (click)="openDeleteDialog()"
+    ><i class="material-icons row_action">delete</i></a>
+  </div>
+</div>

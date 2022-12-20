@@ -1,0 +1,45 @@
+{
+  "global": {
+    "toggle_navigation": "Փոխարկել նավիգացիան",
+    "header": {
+      "dashboard": "ՎԱՀԱՆԱԿ",
+      "log_in": "ՄՈՒՏՔ"
+    },
+    "log_in": {
+      "log_in": "ՄՈՒՏՔ",
+      "or_ce_classical": "Կամ Դասական",
+      "first_name": "Անուն...",
+      "email": "Էլ․ Հասցե...",
+      "password": "Գաղտնաբառ..."
+    },
+    "footer": {
+      "creative_team": "CREATIVE TIM",
+      "about_us": "ՄԵՐ ՄԱՍԻՆ",
+      "blog": "ԲԼՈԳ",
+      "licenses": "ԼԻՑԵՆԶԻԱՆԵՐ",
+      "made_with": "ստեղծել",
+      "by_creatice_tim": "Creative Tim-ի կողմից՝ ավելի լավ համացանցի համար:"
+    }
+  },
+  "dashboard": {
+    "title": "Վահանակ",
+    "card_title": "Համաշխարհային վաճառք ըստ լավագույն վայրերի",
+    "fix_header": "Ուղղել վերնագիրը!",
+    "website_views": "Կայքի դիտումներ",
+    "last_campaign_performance": "Քարոզարշավի վերջին կատարումը",
+    "campaign_sent_2_days_ago": "քարոզարշավն ուղարկվել է 2 օր առաջ",
+    "daily_sales": "Ամենօրյա վաճառք",
+    "increase_in_today_sales": "այսօրվա վաճառքի աճը",
+    "updated_4_minutes_ago": "թարմացվել է 4 րոպե առաջ",
+    "users": "Օգտատերեր",
+    "courses": "Դասընթացներ"
+  },
+  "auth": {
+    "login": {
+      "title": "Մուտք",
+      "sign_in": "Մուտք գործել",
+      "upstart": "'Upstart'",
+      "incorrect-login": "Սխալ մուտքագրման տվյալներ"
+    }
+  }
+}

@@ -1,22 +1,18 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ViewChild,
-  HostListener,
   AfterViewInit,
 } from "@angular/core";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { NavItem, NavItemType } from "../../md/md.module";
 import {
   Location,
-  LocationStrategy,
-  PathLocationStrategy,
   PopStateEvent,
 } from "@angular/common";
 import { NavbarComponent } from "../../shared/navbar/navbar.component";
 import PerfectScrollbar from "perfect-scrollbar";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
 
 declare const $: any;

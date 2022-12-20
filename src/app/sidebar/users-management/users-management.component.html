@@ -1,0 +1,131 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card_title_part">
+              <div class="card-icon">
+                <i class="material-icons">person_add_alt</i>
+              </div>
+              <h4 class="card-title">Create Admin or Moderator</h4>
+            </div>
+          </div>
+          <div class="card-body ">
+            <form [formGroup]="adminModeratorForm">
+              <div class="container">
+                <div class="row form_row">
+                  <span class="col-6 form_field">
+                    <div class="p-grid p-fluid">
+                      <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                          <input type="text" pInputText formControlName="first_name" placeholder="First Name" required>
+                          <div class="errors_text"
+                            *ngIf="f['first_name'].errors?.['required'] && (f['first_name'].dirty || f['first_name'].touched)">
+                            <p>First Name is required</p>
+                          </div>
+                          <div class="errors_text" *ngIf="f['first_name'].errors?.['pattern']">
+                            <p>First Name length must be at least from 3 to 22 symbols</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="col-6 form_field">
+                    <div class="p-grid p-fluid">
+                      <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                          <input type="text" pInputText formControlName="last_name" placeholder="Last Name" required>
+                          <div class="errors_text"
+                            *ngIf="f['last_name'].errors?.['required'] && (f['last_name'].dirty || f['last_name'].touched)">
+                            <p>Last Name is required</p>
+                          </div>
+                          <div class="errors_text" *ngIf="f['last_name'].errors?.['pattern']">
+                            <p>Last Name length must be at least from 3 to 22 symbols</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="col-6 form_field">
+                    <div class="p-grid p-fluid">
+                      <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon"><i class="material-icons">alternate_email</i></span>
+                          <input type="email" pInputText formControlName="email" placeholder="Email" autocomplete="off"
+                            [ngClass]="{ error: adminModeratorForm.controls.email.errors?.['pattern'] || emailError}"
+                            required>
+                          <div class="errors_text"
+                            *ngIf="f['email'].errors?.['required'] && (f['email'].dirty || f['email'].touched)">
+                            <p>Email is required.</p>
+                          </div>
+                          <div class="errors_text" *ngIf="f['email'].errors?.['pattern']">
+                            <p>Incorrect E-Mail Address</p>
+                          </div>
+                          <div class="errors_text" *ngIf="errorMessage">
+                            <p>{{ errorMessage }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="col-6 form_field">
+                    <div class="p-grid p-fluid">
+                      <div class="p-col-12 p-md-4">
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon"><i class="material-icons">vpn_key</i></span>
+                          <input type="{{ fieldTextType ? 'text' : 'password' }}" pInputText formControlName="password" autocomplete="new-password"
+                            placeholder="Password" required>
+                          <span *ngIf="adminModeratorForm.value.password && adminModeratorForm.value.password.length>0"
+                            class="p-inputgroup-addon password_toggle" (click)="toggleShowPassword()">
+                            <i class="material-icons" [hidden]="!showPassword">visibility_off</i>
+                            <i class="material-icons" [hidden]="showPassword">visibility</i>
+                          </span>
+                          <div class="errors_text"
+                            *ngIf="f['password'].errors?.['required'] && (f['password'].dirty || f['password'].touched)">
+                            <p>Password is required</p>
+                          </div>
+                          <div class="errors_text" *ngIf="f['password'].errors?.['pattern']">
+                            <p>Password length must be at least 8 symbols</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="col-6 form_field">
+                    <div class="p-grid p-fluid">
+                      <div class="p-col-12 p-md-4">
+                        <label class="role_label" class="role_label mb-3">ROLE</label>
+                        <div class="p-field-radiobutton mb-3">
+                          <p-radioButton name="role_id" value="1" inputId="administrator"
+                            formControlName="role_id"></p-radioButton>
+                          <label for="administrator" class="radio_text m-0 pl-2">Administrator</label>
+                        </div>
+                        <div class="p-field-radiobutton mb-3">
+                          <p-radioButton name="role_id" value="2" inputId="moderator"
+                            formControlName="role_id"></p-radioButton>
+                          <label for="moderator" class="radio_text m-0 pl-2">Moderator</label>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  <span class="col-6 create_btn">
+                    <div class="p-grid p-fluid">
+                      <div class="p-col-12 p-md-4">
+                        <p-button label="Create" (onClick)="submitForm()" [disabled]="adminModeratorForm.invalid">
+                          <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2"></span>
+                        </p-button>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

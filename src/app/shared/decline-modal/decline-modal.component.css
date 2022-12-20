@@ -1,0 +1,7 @@
+.content{
+    width: 350px;
+}
+.row_action {
+    justify-content: flex-end;
+    display: flex;
+}

@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card_title_part">
+              <div class="card-icon">
+                <i class="material-icons">supervisor_account</i>
+              </div>
+            </div>
+            <div class="header_action">
+              <div class="filter">
+                <p-multiSelect
+                  [options]="_roles"
+                  [(ngModel)]="selectedRoles"
+                  defaultLabel="Filter by role"
+                  optionLabel="label"
+                  display="chip"
+                  (onChange)="detectRoleChange(selectedRoles)"
+                ></p-multiSelect>
+              <span class="p-input-icon-right">
+                <i class="pi pi-search" (click)="detectSearchSubmit(selectedRoles)"></i>
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Search User"
+                  [(ngModel)]="searchText"
+                  (keypress)="$event.keyCode == 13 ? detectSearchSubmit(selectedRoles) : ''"
+                />
+              </span>
+            </div>
+              <button mat-raised-button class="btn btn-success create-new">Create New</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="courses-table" *ngIf="!isLoading; else spinerModel">
+              <ng-container *ngIf="usersData && usersData.length > 0; else noDataModel">
+                <ng-container *ngFor="let userData of usersData">
+                  <app-user [userData]="userData"></app-user>
+                </ng-container>
+              </ng-container>
+              <ng-template #noDataModel>
+                <div class="notData-block">
+                  <p class="notData-text">{{errorMessage}}</p>
+                </div>
+              </ng-template>
+            </div>
+            <ng-template #spinerModel>
+              <div class="loader-block">
+                <mat-spinner></mat-spinner>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pagination *ngIf="usersData && usersData.length > 0" [pageIndex]="currentPage - 1" [pageSize]="pageSize"
+    [total]="totalPages" (pageChange)="pageChanged($event)"></app-pagination>
+</div>

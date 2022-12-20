@@ -1,0 +1,24 @@
+select{
+  background: transparent;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 0 10px;
+  margin-left: 2px;
+  max-height: 20px;
+}
+select option {
+  background: rgb(37, 37, 37);
+  color: white;
+  border-radius: 5px;
+}
+a {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+i {
+  margin-top: 0 !important;
+}
