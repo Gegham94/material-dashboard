@@ -44,6 +44,7 @@ dist/
 
 # JSON files
 package-lock.json
+yarn.lock
 
 # Compiled Java class files
 *.class
@@ -72,3 +73,6 @@ TEST*.xml
 *.flv
 *.mov
 *.wmv
+
+#Lock files
+yarn.lock

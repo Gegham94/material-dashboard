@@ -9,9 +9,9 @@ import { UsersComponent } from "./users.component";
 import { UsersRoutes } from "./users.routing";
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { UserModule } from '../../shared/user/user.module';
 import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -21,11 +21,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
     MaterialModule,
     TranslateModule,
     PaginationModule,
-    UserModule,
     DropdownModule,
     InputTextModule,
     ButtonModule,
     MultiSelectModule,
+    TooltipModule,
   ],
   declarations: [ UsersComponent ],
 })

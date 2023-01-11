@@ -9,6 +9,7 @@ import { CategoriesComponent } from "./categories.component";
 import { CategoriesRoutes } from "./categories.routing";
 
 @NgModule({
+  declarations: [CategoriesComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(CategoriesRoutes),
@@ -16,6 +17,5 @@ import { CategoriesRoutes } from "./categories.routing";
     MaterialModule,
     TranslateModule
   ],
-  declarations: [CategoriesComponent],
 })
 export class CategoriesModule {}

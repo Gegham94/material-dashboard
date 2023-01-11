@@ -1,3 +1,4 @@
+import { UserType } from '../enums/user-type.enum';
 export interface PublicUser {
   id: number;
   first_name: string;
@@ -6,9 +7,8 @@ export interface PublicUser {
   tax_identity_number: string;
   email: string;
   email_verified_at: string;
-  role_id: number;
-  created_at: string;
-  updated_at: string;
+  role_id: UserType;
   avatar: string;
-  slug: string
+  slug: string;
+  api_token: string;
 }

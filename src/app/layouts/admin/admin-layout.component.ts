@@ -11,15 +11,16 @@ import {
   PopStateEvent,
 } from "@angular/common";
 import { NavbarComponent } from "../../shared/navbar/navbar.component";
-import PerfectScrollbar from "perfect-scrollbar";
+// import PerfectScrollbar from "perfect-scrollbar";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
 
-declare const $: any;
+// declare const $: any;
 
 @Component({
   selector: "app-layout",
   templateUrl: "./admin-layout.component.html",
+  styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
   public navItems: NavItem[];
@@ -59,14 +60,14 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
         elemMainPanel.scrollTop = 0;
         elemSidebar.scrollTop = 0;
       });
-    const html = document.getElementsByTagName("html")[0];
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      let ps = new PerfectScrollbar(elemMainPanel);
-      ps = new PerfectScrollbar(elemSidebar);
-      html.classList.add("perfect-scrollbar-on");
-    } else {
-      html.classList.add("perfect-scrollbar-off");
-    }
+    // const html = document.getElementsByTagName("html")[0];
+    // if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+    //   let ps = new PerfectScrollbar(elemMainPanel);
+    //   ps = new PerfectScrollbar(elemSidebar);
+    //   html.classList.add("perfect-scrollbar-on");
+    // } else {
+    //   html.classList.add("perfect-scrollbar-off");
+    // }
     this._router = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -131,7 +132,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     ];
   }
   ngAfterViewInit() {
-    this.runOnRouteChange();
+    // this.runOnRouteChange();
   }
   public isMap() {
     if (
@@ -143,17 +144,17 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       return false;
     }
   }
-  runOnRouteChange(): void {
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      const elemSidebar = <HTMLElement>(
-        document.querySelector(".sidebar .sidebar-wrapper")
-      );
-      const elemMainPanel = <HTMLElement>document.querySelector(".main-panel");
-      let ps = new PerfectScrollbar(elemMainPanel);
-      ps = new PerfectScrollbar(elemSidebar);
-      ps.update();
-    }
-  }
+  // runOnRouteChange(): void {
+  //   if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+  //     const elemSidebar = <HTMLElement>(
+  //       document.querySelector(".sidebar .sidebar-wrapper")
+  //     );
+  //     const elemMainPanel = <HTMLElement>document.querySelector(".main-panel");
+  //     let ps = new PerfectScrollbar(elemMainPanel);
+  //     ps = new PerfectScrollbar(elemSidebar);
+  //     ps.update();
+  //   }
+  // }
   isMac(): boolean {
     let bool = false;
     if (

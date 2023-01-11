@@ -1,0 +1,18 @@
+.content{
+    width: 70vw;
+}
+
+.row_action {
+    justify-content: flex-end;
+    display: flex;
+    position: absolute;
+    top: 26px;
+    right: 26px;
+    cursor: pointer;
+}
+
+::ng-deep .mat-dialog-container {
+    max-height: 100vh;
+    overflow-y: auto;
+    position: relative;
+}

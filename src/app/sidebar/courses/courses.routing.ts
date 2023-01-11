@@ -12,7 +12,7 @@ export const CoursesRoutes: Routes = [
         component: CoursesComponent,
       },
       {
-        path: "verification/:id",
+        path: ":id",
         children: [
           {
             path: "",

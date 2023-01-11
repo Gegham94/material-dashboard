@@ -1,5 +1,3 @@
-import { CourseModule } from '../course/course.module';
-import { UserModule } from '../user/user.module';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -13,8 +11,6 @@ import { DeleteDialogComponent } from "./delete-dialog.component";
     FormsModule,
     MaterialModule,
     TranslateModule,
-    CourseModule,
-    UserModule,
   ],
   exports: [ DeleteDialogComponent ],
   declarations: [DeleteDialogComponent],

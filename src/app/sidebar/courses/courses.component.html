@@ -12,42 +12,119 @@
             <div class="header_action">
               <div class="filter">
                 <p-multiSelect
-                  [options]="_types"
-                  [(ngModel)]="selectedTypes"
-                  defaultLabel="Filter by type"
-                  optionLabel="label"
-                  display="chip"
-                  (onChange)="detectTypeChange(selectedTypes)"
-                ></p-multiSelect>
-                <p-multiSelect
                   [options]="_statuses"
                   [(ngModel)]="selectedStatuses"
-                  defaultLabel="Filter by status"
+                  defaultLabel="{{'course.filter_by_status' | translate}}"
                   optionLabel="label"
                   display="chip"
                   (onChange)="detectStatusChange(selectedStatuses)"
                 ></p-multiSelect>
+                <p-multiSelect
+                  [options]="_types"
+                  [(ngModel)]="selectedTypes"
+                  defaultLabel="{{'course.filter_by_type' | translate}}"
+                  optionLabel="label"
+                  display="chip"
+                  (onChange)="detectTypeChange(selectedTypes)"
+                ></p-multiSelect>
               <span class="p-input-icon-right">
-                <i class="pi pi-search" (click)="detectSearchSubmit(selectedTypes, selectedStatuses)"></i>
+                <i class="pi pi-search" (click)="detectSearchSubmit(selectedStatuses, selectedTypes)"></i>
                 <input
                   type="text"
                   pInputText
-                  placeholder="Search Course"
+                  placeholder="{{'course.search_course' | translate}}"
                   [(ngModel)]="searchText"
-                  (keypress)="$event.keyCode == 13 ? detectSearchSubmit(selectedTypes, selectedStatuses) : ''"
+                  (keypress)="$event.keyCode == 13 ? detectSearchSubmit(selectedStatuses, selectedTypes) : ''"
                 />
               </span>
             </div>
-              <button mat-raised-button class="btn btn-success create-new">Create New</button>
             </div>
           </div>
           <div class="card-body">
-            <div class="courses-table" *ngIf="!isLoading; else spinerModel">
-              <ng-container *ngIf="coursesData && coursesData.length > 0; else noDataModel">
-                <ng-container *ngFor="let courseData of coursesData">
-                  <app-course [courseData]="courseData"></app-course>
-                </ng-container>
-              </ng-container>
+            <div class="table-responsive" *ngIf="!isLoading; else spinerModel">
+              <table class="table table-hover" *ngIf="coursesData && coursesData.dataRows.length > 0; else noDataModel">
+                <thead>
+                  <tr>
+                    <th class="header_th">{{'course.table.title' | translate}}</th>
+                    <th class="header_th">{{'course.table.price' | translate}}</th>
+                    <th class="header_th">{{'course.table.type' | translate}}</th>
+                    <th class="header_th">{{'course.table.status' | translate}}</th>
+                    <th class="header_th"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="body_row" *ngFor="let row of coursesData.dataRows" (click)="goCourseVerification(row)">
+                    <td>{{row.title}}</td>
+                    <td>
+                      <span class="free" *ngIf="row.price < 1 ">{{'course.price.free' | translate}}</span>
+                      <span class="price" *ngIf="row.price >= 1 ">
+                        {{row.price | number}}
+                        <span *ngIf="row.currency==='AMD'">֏</span>
+                        <span *ngIf="row.currency==='USD'">$</span>
+                      </span>
+                    </td>
+                    <td *ngIf="row.type">
+                      <span class="type_style" *ngIf="row.type === courseTypes.ONLINE"
+                        [style]="{ 'background-color': '#C585FF' }"
+                      >
+                        {{online}}
+                      </span>
+                      <span class="type_style" *ngIf="row.type === courseTypes.OFFLINE"
+                        [style]="{ 'background-color': '#A5A6F6' }"
+                      >
+                        {{offline}}
+                      </span>
+                      <span class="type_style" *ngIf="row.type === courseTypes.ONLINE_WEBINAR"
+                        [style]="{ 'background-color': '#b05ffc' }"
+                      >
+                        {{onlineWebinar}}
+                      </span>
+                      <span class="type_style" *ngIf="row.type === courseTypes.CONSULTATION"
+                        [style]="{ 'background-color': '#8587fd' }"
+                      >
+                        {{consultation}}
+                      </span>
+                    </td>
+                    <td *ngIf="row.type" >
+                      <span class="status_style" *ngIf="row.status=== courseStatus.DRAFT"
+                        [style]="{ 'background-color': 'rgb(243 123 123)' }"
+                      >
+                        {{draft}}
+                      </span>
+                      <span class="status_style" *ngIf="row.status=== courseStatus.UNDER_REVIEW"
+                        [style]="{ 'background-color': 'rgb(199 201 30)' }"
+                      >
+                        {{underReview}}
+                      </span>
+                      <span class="status_style" *ngIf="row.status=== courseStatus.APPROVED"
+                        [style]="{ 'background-color': 'rgb(128 197 138)' }"
+                      >
+                        {{approved}}
+                      </span>
+                      <span class="status_style" *ngIf="row.status=== courseStatus.DECLINED"
+                        [style]="{ 'background-color': 'rgb(201, 70, 30)' }"
+                      >
+                        {{declined}}
+                      </span>
+                      <span class="status_style" *ngIf="row.status=== courseStatus.DELETED"
+                        [style]="{ 'background-color': 'rgba(228, 17, 17, 0.719)' }"
+                      >
+                        {{deleted}}
+                      </span>
+                    </td>
+                    <td class="action_td">
+                      <span class="actions_keeper">
+                        <a
+                        class="btn btn-link btn-danger btn-just-icon deleteBtn"
+                        pTooltip="{{'course.delete_course' | translate}}"
+                        tooltipPosition="left"
+                        (click)="openDeleteDialog(row.id, row.title, $event)"
+                      ><i class="material-icons row_action">delete</i></a>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <ng-template #noDataModel>
                 <div class="notData-block">
                   <p class="notData-text">{{errorMessage}}</p>
@@ -65,7 +142,7 @@
     </div>
   </div>
   <app-pagination
-    *ngIf="coursesData && coursesData.length > 0"
+    *ngIf="coursesData && coursesData.dataRows.length > 0"
     [pageIndex]="currentPage - 1"
     [pageSize]="pageSize"
     [total]="totalPages"

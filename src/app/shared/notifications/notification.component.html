@@ -1,16 +1,42 @@
-<li class="nav-item dropdown">
-  <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<li class="nav-item dropdown notification-block">
+  <a class="nav-link" id="navbarDropdownMenuLink" (click)="fetchData()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="material-icons">notifications</i>
-    <span class="notification">5</span>
+    <span *ngIf="unreadCount > 0" class="notification"></span>
     <p>
       <span class="d-lg-none d-md-block">Some Actions</span>
     </p>
   </a>
-  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-    <a class="dropdown-item">Mike John responded to your email</a>
-    <a class="dropdown-item">You have 5 new tasks</a>
-    <a class="dropdown-item">You're now friend with Andrew</a>
-    <a class="dropdown-item">Another Notification</a>
-    <a class="dropdown-item">Another One</a>
+  <div class="dropdown-menu dropdown-menu-right notification-block__list" aria-labelledby="navbarDropdownMenuLink" >
+    <div class="notification-block__header">
+      <div class="notification-block__header-first">
+        <p class="notification-block__title">Notifications</p>
+        <span>Unread {{unreadCount}}</span>
+      </div>
+      <p class="notification-block__mark-read"
+        (click)="markAllRead($event)">{{ 'global.header.header-notification.mark-all' | translate }}</p>
+    </div>
+    <ng-container *ngIf="!loader; else loaderBlock">
+      <ng-container *ngIf="allNotifications?.length > 0; else notData">
+        <div class="d-flex justify-content-center" *ngFor="let notification of allNotifications; let index = index">
+          <a class="dropdown-item" (click)="readNotification(notification.id, notification.status, $event)" [ngClass]="{'not_bold':notification.status===0}">{{notification.title}}
+            <span class="ml-2"> {{ notification.created_at | date }} </span>
+          </a>
+        </div>
+      </ng-container>
+      <ng-template #notData>
+        {{ 'global.header.header-notification.no-notifications' | translate }}
+      </ng-template>
+
+    </ng-container>
+    <ng-template #loaderBlock>
+      <div class="notification-block__loader">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+    <div class="notification-block__footer">
+      <p class="notification-block__footer-see-all" (click)="router.navigate(['system/notification'])">
+          {{ 'global.header.header-notification.see-all' | translate }}
+      </p>
+    </div>
   </div>
 </li>

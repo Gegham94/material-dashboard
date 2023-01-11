@@ -1,0 +1,78 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card_title_part">
+                <div class="card-icon">
+                  <i class="material-icons">supervisor_account</i>
+                </div>
+                <input #search placeholder="{{'global.search' | translate}}" class="search" type="text">
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table" *ngIf="!isLoading; else spinerModel">
+                <div class="table-header table-row">
+                  <div class="td">{{'global.company-trainers.image' | translate}}</div>
+                  <div class="td">{{'global.company-trainers.name' | translate}} {{'global.company-trainers.surname' | translate}}</div>
+                  <div class="td action">{{'global.company-trainers.company' | translate}}</div>
+                </div>
+                <div class="table-content">
+                <div class="table-row" *ngFor="let row of filteredData; let rowIndex = index">
+                  <div [routerLink]="'/system/trainer/' + row.id">
+  
+                    <!-- <div (click)="expanded[row.id] = !expanded[row.id]" class="td">
+                      <span *ngIf="isRowClickable(rowIndex)">
+                        <a><i class="material-icons toggle_arrow" *ngIf="expanded[row.id]">expand_less</i></a>
+                        <a><i class="material-icons toggle_arrow" *ngIf="!expanded[row.id]">expand_more</i></a>
+                      </span>
+                    </div> -->
+                    <div (click)="expanded[row.id] = !expanded[row.id]" class="td">
+                      <img [src]="row.avatar" alt="" class="avatar"
+                       onerror="this.onerror=null;this.src='../../../assets/img/default-avatar.png'">
+                    </div>
+                    <div (click)="expanded[row.id] = !expanded[row.id]" class="td">
+                      {{row.first_name}} {{row.last_name}}
+                    </div>
+                    <div (click)="expanded[row.id] = !expanded[row.id]" class="td">{{row.company_name}}</div>
+                    <!-- <div class="td child-action">
+                      <img (click)="editTrainer(row)" src="../../../assets/img/edit.svg" alt="">
+                    </div>
+                    <div  class="td child-action">
+                      <img (click)="deleteTrainer(row, false)" src="../../../assets/img/delete.svg" alt="">
+                    </div> -->
+                    <!-- <div [@detailExpand]="expanded[row.id] ? 'expanded' : 'collapsed'">
+                      <div  class="child-row" *ngFor="let childrow of row.children">
+                        <div class="td child">{{childrow.title}}</div>
+                        <div class="td child">{{childrow.title_am}}</div>
+                        <div class="td child">{{childrow.ordering}}</div>
+                        <div  class="td child child-action">
+                          <img (click)="editTrainer(childrow)" src="../../../assets/img/edit.svg" alt="">
+                        </div>
+                        <div  class="td child child-action">
+                          <img (click)="deleteTrainer(childrow, true)" src="../../../assets/img/delete.svg" alt="">
+                        </div>
+                      </div>
+                  </div> -->
+                  </div>
+                </div>
+                </div>
+              </div>
+              <ng-template #spinerModel>
+                <div class="loader-block">
+                  <mat-spinner></mat-spinner>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-pagination
+    (pageChange)="pageChange($event)"
+    [total]="trainersCount"
+    [pageIndex]="0"
+    [pageSize]="10"
+    ></app-pagination>
+  </div>

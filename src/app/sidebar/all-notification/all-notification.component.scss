@@ -1,0 +1,60 @@
+@import 'src/assets/styles/variables/colors';
+
+.main-content {
+  .tab-content{
+    max-width: 800px;
+  }
+  .tab-content-header{
+    display: flex;
+    justify-content: space-between;
+    .mark-read{
+      cursor: pointer;
+      &:hover{
+        color: $main;
+      }
+    }
+  }
+  .notification_list {
+
+    .unread {
+      h5 {
+        font-weight: 700;
+        color: black;
+      }
+    }
+    .unread_notification{
+      cursor: pointer;
+
+      &:hover{
+        h5 {
+          color: #9c27b0;
+        }
+      }
+    }
+    .notification_title{
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 16px;
+      color: #737373;
+      word-wrap: break-word;
+      margin-bottom: 8px;
+    }
+    .notification_message{
+      display: block;
+      margin-bottom: 5px;
+    }
+    .notification_date{
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 17px;
+      letter-spacing: .05em;
+      text-align: left;
+      color: #7a819f;
+    }
+    .notification_loader{
+      justify-content: center;
+      display: flex;
+    }
+  }
+}

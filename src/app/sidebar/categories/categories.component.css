@@ -1,3 +1,19 @@
+.loader-block {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+::ng-deep.mat-progress-spinner {
+  width: 50px !important;
+  height: 90px !important;
+}
+::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: blueviolet;
+}
+::ng-deep.mat-progress-spinner svg {
+  width: 50px !important;
+}
 .card-header{
   display: flex;
   flex-direction: row;
@@ -8,14 +24,97 @@
   width: 100%;
 }
 .create-new-category {
+  font-family: "Open Sans", sans-serif;
   white-space: nowrap !important;
-  margin-top: 15px !important;
+  margin-top: 10px !important;
 }
 .card-body{
   margin-top: 0;
   padding-top: 0;
 }
-.row_action:hover{
-  background-color: rgba(189, 189, 189, 0.459);
-  opacity: 0.9;
+h1, p, .td {
+  font-family: "Open Sans", sans-serif;
+}
+.table {
+  font-size: 16px;
+  margin: 0;
+}
+.table, .td {
+  text-align: left;
+}
+.table-header {
+  font-weight: bold;
+}
+.table-header.table-row {
+  border-bottom: 2px solid gray;
+  padding-bottom: 10px;
+}
+.table-row {
+  display: block;
+  white-space: nowrap;
+  border-bottom: 1px solid lightgray;
+  overflow: hidden;
+}
+.table-row:last-child {
+  border: none
+}
+.icon{
+  max-width: 35px;
+  max-height: 35px;
+}
+.toggle_arrow {
+  font-size: 28px;
+}
+.td {
+  display: inline-block;
+  padding: 8px;
+  white-space: pre-wrap;
+}
+.td:nth-child(0) {
+  width: calc(10vw);
+}
+.td:nth-child(1) {
+  width: calc(10vw);
+}
+.td:nth-child(2) {
+  width: calc(20vw);
+}
+.td:nth-child(3) {
+  width: calc(20vw);
+}
+.td:nth-child(4) {
+  width: calc(20vw);
+}
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  background-color: #cecece8c;
+}
+.child-row {
+  background-color: #cecece49;
+}
+.child {
+  /* margin-left: 5px; */
+}
+.action,.child-action{
+  width: 5vw;
+}
+.action,.child-action img{
+  cursor: pointer;
+}
+@media(max-width: 1366px) {
+  .td{
+    font-size: 14px;
+  }
+}
+@media(max-width: 1198px) {
+  .td{
+    font-size: 12px;
+  }
+}
+@media(max-width: 720px) {
+  .td{
+    font-size: 10px;
+  }
 }

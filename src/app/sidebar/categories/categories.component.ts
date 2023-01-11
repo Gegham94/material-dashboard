@@ -1,130 +1,128 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-
-import { CategoriesService } from '../../core/services/categories.service';
-
-declare interface CategoriesTable {
-  headerRow: string[];
-  footerRow: string[];
-  dataRows: string[][];
-}
-
-declare const $: any;
-
+import { Component, OnInit } from "@angular/core";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from "@angular/animations";
+import { CategoriesService } from "../../core/services/categories.service";
+import { Categories } from "../../core/interfaces/categories.interface";
+import { TranslatedTitleService } from "../../shared/services/translated-title.service";
+import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { ConfirmDialogComponent } from "../../shared/confirm-dialog/confirm-dialog.component";
+import { ToastrService } from "ngx-toastr";
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css']
+  selector: "app-categories",
+  templateUrl: "./categories.component.html",
+  styleUrls: ["./categories.component.css"],
+  animations: [
+    trigger("detailExpand", [
+      state("collapsed", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
+    ]),
+  ],
 })
-export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CategoriesComponent implements OnInit {
+  private readonly title: string = "dashboard.categories";
+  public expanded: { [key: string]: boolean } = {};
+  public categoriesData: Categories[];
+  public isLoading: boolean = true;
 
-  constructor( private categoriesService: CategoriesService ) { }
-
-  public dataTable: CategoriesTable;
-
-  ngOnInit() {
-    this.dataTable = {
-      headerRow: [ 'Name', 'Position', 'Office', 'Age', 'Date', 'Actions' ],
-      footerRow: [ 'Name', 'Position', 'Office', 'Age', 'Start Date', 'Actions' ],
-
-      dataRows: [
-        ['Airi Satou', 'Andrew Mike', 'Develop', '2015', '99,225', ''],
-        ['Angelica Ramos', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-        ['Ashton Cox', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-        ['Bradley Greer', 'Mike Monday', 'Marketing', '2013', '54,200', 'btn-round'],
-        ['Brenden Wagner', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-        ['Brielle Williamson', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-        ['Caesar Vance', 'Mike Monday', 'Marketing', '2020', '55,444', 'btn-round'],
-        ['Cedric Kelly', 'Mike Monday', 'Marketing', '2013', '58,990', 'btn-round'],
-        ['Charde Marshall', 'Mike Monday', 'Marketing', '2022', '49,990', 'btn-round'],
-        ['Colleen Hurst', 'Mike Monday', 'Marketing', '2007', '64,990', 'btn-round'],
-        ['Dai Rios', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-        ['Doris Wilder', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-        ['Fiona Green', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-        ['Garrett Winters', 'Mike Monday', 'Marketing', '2006', '49,443', 'btn-round'],
-        ['Gavin Cortez', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-        ['Gavin Joyce', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-        ['Gloria Little', 'Mike Monday', 'Marketing', '2018', '88,995', 'btn-round'],
-        ['Haley Kennedy', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-        ['Herrod Chandler', 'Mike Monday', 'Marketing', '2019', '77,558', 'btn-round'],
-        ['Hope Fuentes', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-        ['Howard Hatfield', 'Andrew Mike', 'Develop', '2004', '99,225', ''],
-        ['Jena Gaines', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-        ['Jenette Caldwell', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-        ['Jennifer Chang', 'Mike Monday', 'Marketing', '2013', '90,990', 'btn-round'],
-        ['Martena Mccray', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-        ['Michael Silva', 'Mike Monday', 'Marketing', '2013', '50,990', 'btn-round'],
-        ['Michelle House', 'Mike Monday', 'Marketing', '2013', '49,450', 'btn-round'],
-        ['Paul Byrd', 'Mike Monday', 'Marketing', '2005', '49,990', 'btn-round'],
-        ['Prescott Bartlett', 'Mike Monday', 'Marketing', '2005', '49,887', 'btn-round'],
-        ['Quinn Flynn', 'Mike Monday', 'Marketing', '2013', '44,990', 'btn-round'],
-        ['Rhona Davidson', 'Andrew Mike', 'Develop', '2009', '99,225', ''],
-        ['Shou Itou', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-        ['Sonya Frost', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-        ['Suki Burks', 'Mike Monday', 'Marketing', '2013', '22,550', 'btn-round'],
-        ['Tatyana Fitzpatrick', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-        ['Tiger Nixon', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-        ['Timothy Mooney', 'Mike Monday', 'Marketing', '2011', '49,990', 'btn-round'],
-        ['Unity Butler', 'Mike Monday', 'Marketing', '2013', '11,660', 'btn-round'],
-        ['Vivian Harrell', 'Mike Monday', 'Marketing', '2013', '12,990', 'btn-round'],
-        ['Yuri Berry', 'Mike Monday', 'Marketing', '2001', '99,990', 'btn-round']
-      ]
-    };
+  constructor(
+    private readonly translatedTitleService: TranslatedTitleService,
+    private categoriesService: CategoriesService,
+    private router: Router,
+    private dialog: MatDialog,
+    private toastrModule: ToastrService
+  ) {
+    this.translatedTitleService.setTranslatedTitle(this.title);
   }
 
-  ngAfterViewInit() {
-    $(document).ready(() => {
-      $('#datatables').DataTable({
-        "pagingType": "full_numbers",
-        "lengthMenu": [
-          [10, 25, 50, -1],
-          [10, 25, 50, "All"]
-        ],
-        responsive: true,
-        language: {
-          search: "_INPUT_",
-          searchPlaceholder: "Search records",
+  public ngOnInit(): void {
+    this.fetchData();
+  }
+
+  public fetchData() {
+    if (this.categoriesData) {
+      this.categoriesData = [];
+    }
+    this.isLoading = true;
+    this.categoriesService.getCategories().subscribe({
+      next: (res) => {
+        this.categoriesData = res;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        if (err.error.success === false) {
+          this.isLoading = false;
         }
-      });
+      },
+    });
+  }
 
-      const table = $('#datatables').DataTable();
+  public addCategory() {
+    this.router.navigate(["/system/categories-management"]);
+  }
 
-      // Edit record
-      table.on('click', '.edit', (e) => {
-        this.editCategory();
-        let $tr = $(this).closest('tr');
-        if ($($tr).hasClass('child')) {
-          $tr = $tr.prev('.parent');
+  isRowClickable(rowIndex: number): boolean {
+    return (
+      this.categoriesData[rowIndex].children &&
+      this.categoriesData[rowIndex].children.length > 0
+    );
+  }
+
+  public editCategory(event: any) {
+    this.router.navigate([`/system/categories-management/`], {
+      queryParams: { id: event.id },
+    });
+  }
+
+  public deleteCategory(event: any, isChild: boolean) {
+    const confirm = this.dialog.open(ConfirmDialogComponent, {
+      width: "500px",
+      height: "200px",
+      panelClass: "confirm-dialog",
+    });
+    confirm.afterClosed().subscribe((res) => {
+      if (res) {
+        this.isLoading = true;
+        this.deleteCategoryFetch(event.id, isChild);
+      }
+    });
+  }
+
+  private deleteCategoryFetch(id: number, isChild: boolean): void {
+    this.categoriesService.deleteCategoryById(id).subscribe(
+      (res) => {
+        if (res.success) {
+          this.isLoading = false;
+          if (isChild) {
+            this.categoriesData.forEach((elem) => {
+              elem.children.forEach((element, i) => {
+                if (element.id === id) {
+                  elem.children.splice(i, 1);
+                  this.toastrModule.success(res.message);
+                }
+              });
+            });
+          }
+          if (!isChild) {
+            this.categoriesData.forEach((elem, i) => {
+              if (elem.id === id) {
+                this.categoriesData.splice(i, 1);
+                this.toastrModule.success(res.message);
+              }
+            });
+          }
         }
-        var data = table.row($tr).data();
-        alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        e.preventDefault();
-      });
-
-      // Delete a record
-      table.on('click', '.remove', (e) => {
-        this.deleteCategory();
-        const $tr = $(this).closest('tr');
-        table.row($tr).remove().draw();
-        e.preventDefault();
-      });
-
-      $('.card .material-datatables label').addClass('form-group');
-    })
-  }
-
-  createCategory(){
-    this.categoriesService.createCategory(1);
-  }
-
-  editCategory(){
-    this.categoriesService.updateCategory(1);
-  }
-
-  deleteCategory(){
-    this.categoriesService.deleteCategory(1);
-  }
-
-  ngOnDestroy(){
-    $('#datatables').DataTable().destroy();
+      },
+      (error) => this.toastrModule.error(error.message)
+    );
   }
 }

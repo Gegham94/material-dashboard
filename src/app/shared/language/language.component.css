@@ -1,16 +1,68 @@
-select{
-  background: transparent;
-  color: white;
-  border-radius: 5px;
-  font-size: 14px;
-  padding: 0 10px;
-  margin-left: 2px;
-  max-height: 20px;
+::ng-deep.mat-option {
+  margin: 0 !important;
 }
-select option {
-  background: rgb(37, 37, 37);
-  color: white;
-  border-radius: 5px;
+::ng-deep.mat-option:hover {
+  background: transparent !important;
+  color: black !important;
+}
+.nav-item{
+  margin-bottom: 4px;
+}
+.nav-link{
+  padding: 0 2px 2px 5px !important;
+}
+.nav-link:hover{
+  background: rgba(128, 0, 128, 0.096);
+}
+.mat-form-field{
+  width: 60px;
+  height: 40px;
+}
+::ng-deep.mat-select-panel {
+  min-width: calc(100% + 20px) !important;
+}
+::ng-deep .white_language_select .mat-select-value-text {
+  color : white;
+}
+::ng-deep .dark_language_select .mat-select-value-text {
+  color : black;
+}
+::ng-deep .white_language_select .mat-select-arrow {
+  color : white;
+}
+::ng-deep .dark_language_select .mat-select-arrow {
+  color : black;
+}
+
+::ng-deep.mat-select {
+  width: auto;
+}
+mat-select-arrow-wrapper
+::ng-deep.mat-form-field-wrapper {
+  padding: 0 !important;
+  height: 100%;
+}
+::ng-deep.mat-select-arrow-wrapper {
+  margin-top: 5px;
+}
+::ng-deep.mat-form-field-underline{
+  display: none ;
+}
+::ng-deep.mat-select-trigger{
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+/* ::ng-deep.mat-select-value-text{
+  color: black;
+} */
+::ng-deep.mat-select-value{
+  max-width: 30px !important;
+}
+::ng-deep.mat-form-field-flex{
+  padding: 0 !important;
+  background: transparent !important;
 }
 a {
   display: flex;
@@ -20,5 +72,5 @@ a {
   justify-content: center;
 }
 i {
-  margin-top: 0 !important;
+  margin-top: 3px !important;
 }

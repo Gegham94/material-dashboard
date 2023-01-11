@@ -3,7 +3,14 @@
     "toggle_navigation": "Toggle navigation",
     "header": {
       "dashboard": "DASHBOARD",
-      "log_in": "LOGIN"
+      "log_in": "LOGIN",
+      "header-notification": {
+        "notifications": "Notifcations",
+        "unread": "unread",
+        "mark-all": "Mark all as read",
+        "see-all": "See All",
+        "no-notifications": "No notifications"
+      }
     },
     "log_in": {
       "log_in": "Log in",
@@ -18,21 +25,28 @@
       "blog": "BLOG",
       "licenses": "LICENSES",
       "made_with": "made with",
-      "by_creatice_tim": "by Creative Tim for a better web."
+      "by_creatice_tim": "by Creative Tim for a better web.",
+      "copyright":"Copyright",
+      "all-right-reserved": "All right reserved"
+    },
+    "search": "Search",
+    "company-trainers": {
+      "add-trainer": "Add trainer",
+      "image": "Image",
+      "name": "Name",
+      "surname": "Surname",
+      "company": "Company"
     }
   },
   "dashboard": {
-    "title": "Dashboard",
-    "card_title": "Global Sales by Top Locations",
-    "fix_header": "Fix Header!",
-    "website_views": "Website Views",
-    "last_campaign_performance": "Last Campaign Performance",
-    "campaign_sent_2_days_ago": "campaign sent 2 days ago",
-    "daily_sales": "Daily Sales",
-    "increase_in_today_sales": "increase in today sales.",
-    "updated_4_minutes_ago": "updated 4 minutes ago",
+    "my_profile": "My Profile",
+    "dashboard": "Dashboard",
     "users": "Users",
-    "courses": "Courses"
+    "courses": "Courses",
+    "categories": "Categories",
+    "documentation": "Documentation",
+    "company-trainers": "Company trainers",
+    "all-notifications": "All Notifications"
   },
   "auth": {
     "login": {
@@ -41,5 +55,105 @@
       "upstart": "'Upstart'",
       "incorrect-login": "Incorrect Email or Password"
     }
-  }
+  },
+  "course" : {
+    "table": {
+      "title": "Title",
+      "price": "Price",
+      "type": "Type",
+      "status": "Status"
+    },
+    "status": {
+      "draft": "Draft",
+      "under_review": "Under review",
+      "approved": "Approved",
+      "declined": "Declined",
+      "deleted": "Deleted"
+    },
+    "type": {
+      "online": "Online",
+      "offline": "Offline",
+      "online_webinar": "Online Webinar",
+      "consultation": "Consultation"
+    },
+    "price": {
+      "free": "FREE"
+    },
+    "course": "COURSE",
+    "filter_by_status": "Filter by Status",
+    "filter_by_type": "Filter by Type",
+    "search_course": "Search Course",
+    "delete_course": "Delete Course"
+  },
+  "user" : {
+    "table": {
+      "image": "Image",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "role": "Role",
+      "this_fiels_is_required": "This fiels is required",
+      "upload_image": "Upload image"
+    },
+    "profile": {
+      "edit_profile": "Edit Profile",
+      "logout": "Logout",
+      "save": "Save",
+      "change_password": "Change password",
+      "new_password": "New password",
+      "repeat_password": "Repeat password"
+    },
+    "role": {
+      "administrator": "Administrator",
+      "moderator": "Moderator",
+      "trainer": "Trainer",
+      "training_center": "Training center",
+      "student": "Student"
+    },
+    "create": {
+      "create_user": "Create User",
+      "create": "Create",
+      "password": "Password",
+      "required_first_name": "First Name is required",
+      "required_last_name": "Last Name is required",
+      "required_email": "Email is required",
+      "required_password": "Password is required",
+      "first_name_validation": "First Name length must be at least from 3 to 22 symbols",
+      "last_name_validation": "Last Name length must be at least from 3 to 22 symbols",
+      "password_validation": "Password length must be at least 8 symbols",
+      "email_validation": "Incorrect E-Mail Address",
+      "role": "Role"
+    },
+    "user": "USER",
+    "filter_by_role": "Filter by Role",
+    "search_user": "Search User",
+    "add_user": "Add User",
+    "delete_user": "Delete User"
+  },
+  "category_table": {
+    "image": "Image",
+    "title": "Title",
+    "ordering": "Ordering",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add_category": "Add Category",
+    "create_category": "Create Category"
+  },
+  "category_management": {
+    "armenian": "Armenian",
+    "english": "English",
+    "ordering": "Ordering",
+    "parent_category": "Parent category",
+    "save": "Save",
+    "this_fiels_is_required": "This field is required",
+    "category_name": "Category name"
+  },
+  "confirm_dialog": {
+    "yes": "Yes",
+    "no": "No",
+    "ask": "Are you sure you want to delete this category?"
+  },
+  "delete": "DELETE",
+  "cancel": "Cancel",
+  "confirm_delete_dialog": "Are you sure you want to delete this "
 }

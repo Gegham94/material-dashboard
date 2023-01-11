@@ -1,9 +1,13 @@
 <li class="nav-item">
   <a class="nav-link">
     <i class="material-icons">language</i>
-    <select class="language_select" (change)="changeLanguage($event)" [value]="selectedLanguage">
-      <option class="option" value="en">ENG</option>
-      <option class="option" value="hy">ARM</option>
-    </select>
+    <mat-form-field appearance="fill">
+    <mat-select class="{{isDark ? 'dark_language_select' : 'white_language_select'}}" (selectionChange)="changeLanguage($event)" [ngModel]="selectedLang">
+      <mat-option class="language" *ngFor="let language of languages" [value]="language?.value">
+        <img class="header-language__icon" [src]="'/assets/img/flags/' + language?.src + '.png'">
+        {{ language?.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   </a>
 </li>

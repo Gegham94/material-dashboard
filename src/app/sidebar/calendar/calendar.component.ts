@@ -21,13 +21,13 @@ export class CalendarComponent implements OnInit {
         const d = today.getDate();
 
         $calendar.fullCalendar({
-            viewRender: function(view: any, element: any) {
-                // We make sure that we activate the perfect scrollbar when the view isn't on Month
-                if (view.name != 'month') {
-                    var elem = $(element).find('.fc-scroller')[0];
-                    let ps = new PerfectScrollbar(elem);
-                }
-            },
+            // viewRender: function(view: any, element: any) {
+            //     // We make sure that we activate the perfect scrollbar when the view isn't on Month
+            //     if (view.name != 'month') {
+            //         var elem = $(element).find('.fc-scroller')[0];
+            //         let ps = new PerfectScrollbar(elem);
+            //     }
+            // },
             header: {
                 left: 'title',
                 center: 'month, agendaWeek, agendaDay',

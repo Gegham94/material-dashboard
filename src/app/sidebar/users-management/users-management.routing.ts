@@ -2,7 +2,7 @@ import { Routes } from "@angular/router";
 
 import { UsersManagementComponent } from "./users-management.component";
 
-export const AdminModeratorRoutes: Routes = [
+export const UserRoutes: Routes = [
   {
     path: "",
     children: [

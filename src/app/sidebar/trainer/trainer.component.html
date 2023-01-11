@@ -1,0 +1,39 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card_title_part">
+                <div class="card-icon">
+                  <i class="material-icons">info</i>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+                <div  *ngIf="!isLoading; else spinerModel" class="container-fluid mt-5">
+                    <div class="content">
+                        <img [src]="trainer.avatar" alt="" class="image"
+                        onerror="this.onerror=null;this.src='../../../assets/img/default-avatar.png'">
+                    <!-- <img class="image" src="../../../assets/img/default-avatar.png" alt=""> -->
+                    <div class="name-surname-bio">
+                        <div class="name-surname">
+                        <span class="user-name name">{{trainer.first_name}}</span> <span class="user-name">{{trainer.last_name}}</span>
+                    </div>
+                    <div class="bio">
+                        <p [innerHTML]="trainer.bio"></p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+              <ng-template #spinerModel>
+                <div class="loader-block">
+                  <mat-spinner></mat-spinner>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

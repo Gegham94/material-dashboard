@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { GlobalService } from './global.service';
 
 import { ResponseDTO } from '../interfaces/responseData.interface';
-import { Login, User } from '../interfaces/login.interface';
+import { Login } from '../interfaces/login.interface';
+import { PublicUser } from './../interfaces/public-user.interface';
 import { UserType } from '../enums/user-type.enum';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,32 +15,28 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser: Observable<User | null>;
+  public currentUser: PublicUser;
 
   API_URL = environment.API_URL;
 
   constructor(
     private http: HttpClient,
-    private translateService: TranslateService
-    ) {
-    this.currentUserSubject = new BehaviorSubject(
-      JSON.parse(localStorage.getItem('currentUser') as string),
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
+    private translateService: TranslateService,
+    private readonly globalService: GlobalService,
+  ) {
+    this.globalService.currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
+    this.globalService.currentUserObservable.subscribe((user) => {
+      if (user) this.currentUser = user;
+    })
   }
 
-  public updateCurrentUserValue(value: User | null): void {
-    this.currentUserSubject.next(value);
-  }
-
-  public get currentUserValue(): User | null {
-    return this.currentUserSubject?.value;
+  public updateCurrentUserValue(value: PublicUser | null): void {
+    this.globalService.currentUser = value;
   }
 
   login(body: Login) {
-    return this.http.post<ResponseDTO<User>>(`${this.API_URL}/login`, body)
-      .pipe(map((response: ResponseDTO<User>) => {
+    return this.http.post<ResponseDTO<PublicUser>>(`${this.API_URL}/login`, body)
+      .pipe(map((response: ResponseDTO<PublicUser>) => {
         if (response.success === true) {
           if (response.data.role_id === UserType.ADMINISTRATOR || response.data.role_id === UserType.MODERATOR) {
             const data = {
@@ -50,10 +47,11 @@ export class AuthService {
               role_id: response.data.role_id,
               company_name: response.data.company_name,
               tax_identity_number: response.data.tax_identity_number,
+              avatar: response.data.avatar,
               api_token: response.data.api_token
             };
             localStorage.setItem('currentUser', JSON.stringify(data));
-            this.currentUserSubject.next(response.data);
+            this.globalService.currentUser = response.data;
             return response;
           } else {
             return {
@@ -63,7 +61,7 @@ export class AuthService {
             }
           }
         }
-        // return response;
+        return response;
       }),
     );
   }
@@ -73,7 +71,7 @@ export class AuthService {
       map((response: ResponseDTO<[]>) => {
         if (response && response.success === true) {
           localStorage.removeItem('currentUser');
-          this.currentUserSubject.next(null);
+          this.globalService.currentUser = null;
         }
         return response;
       }),

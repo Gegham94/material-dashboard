@@ -25,6 +25,7 @@
             ],
             "assets": [
               "src/favicon.ico",
+              "src/.htaccess",
               "src/assets"
             ],
             "styles": [
@@ -90,19 +91,36 @@
               "vendorChunk": false,
               "buildOptimizer": true
             },
-            "development": {
-             "buildOptimizer": false,
-             "optimization": {
+            "live": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.live.ts"
+                }
+              ],
+              "optimization": {
                 "scripts": true,
                 "styles": {
                   "minify": false,
-                  "inlineCritical": true
+                  "inlineCritical": false
                 },
                 "fonts": true
               },
-             "outputHashing": "all"
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            },
+            "development": {
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "outputHashing": "none"
            }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -113,11 +131,14 @@
             "production": {
               "browserTarget": "demo:build:production"
             },
+            "live": {
+              "browserTarget": "demo:build:live"
+            },
             "development": {
               "browserTarget": "demo:build:development"
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -167,6 +188,7 @@
             ],
             "assets": [
               "src/favicon.ico",
+              "src/.htaccess",
               "src/assets"
             ]
           }
@@ -198,6 +220,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "demo:serve:production"
+            },
+            "live": {
+              "devServerTarget": "demo:serve:live"
             }
           }
         },

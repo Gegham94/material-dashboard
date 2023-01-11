@@ -1,0 +1,150 @@
+.card-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.card_title_part {
+  width: 100%;
+}
+.card-body {
+  margin-top: 0;
+  padding-top: 0;
+  position: relative;
+}
+.card-body .content {
+  width: max-content;
+}
+.input-side {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-end;
+}
+.input-side .delete{
+  border: none;
+  font-weight: 500;
+  font-size: 30px;
+  color: rgb(156, 55, 55);
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.input-side .category-form .input {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+  min-width: 190px;
+  position: relative;
+}
+
+.input-side .category-form {
+  display: flex;
+  align-items: flex-end;
+}
+.input-side .category-form .input .category {
+  border: 1px solid #ced4da;
+  height: 40px;
+  min-width: 250px;
+  max-width: 280px;
+  transition: all .5s;
+  padding: 0 5px;
+  border-radius: 3px;
+  color: #6c757d;
+}
+.input-side .category-form .input .category.error {
+  border: 1px solid rgb(180, 14, 14);
+}
+.edit-parent{
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.required{
+  color: rgb(180, 14, 14);
+  font-weight: 500;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(25px);
+  visibility: hidden;
+}
+.required.show{
+  visibility: visible;
+  height: auto;
+}
+.input.btn-input {
+  display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.input-side .category-form .input .category:hover {
+  border: 1px solid #9C27B0;
+}
+.input-side .category-form .input .category:focus {
+  border: 1px solid #9C27B0;
+}
+
+.input-side .category-form .input .title-label {
+  color: #6c757d;
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.submit {
+  height: 40px;
+  min-width: 100px;
+  font-size: 20px;
+  border-radius: 4px;
+  border: 1px solid #77a383;
+  background-color: #77a383;
+  transition: all .5s;
+  color: #ffffff;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.submit.active {
+  pointer-events: all;
+  opacity: 1;
+}
+.submit.plus {
+  pointer-events: all;
+  opacity: 1;
+  font-size: 25px;
+  margin-left: 10px;
+  min-width: 40px;
+}
+.submit:hover {
+  color: #77a383;
+
+  background-color: #ffffff;
+}
+
+.loader-block {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+::ng-deep.mat-progress-spinner {
+  width: 50px !important;
+  height: 90px !important;
+}
+::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: blueviolet;
+}
+::ng-deep.mat-progress-spinner svg {
+  width: 50px !important;
+}
+::ng-deep .p-multiselect {
+  width: 100%;
+}

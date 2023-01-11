@@ -1,8 +1,8 @@
+import { GlobalService } from './../../core/services/global.service';
 import { Component, AfterViewInit, ElementRef } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
-import { AuthService } from "../../core/services/auth.service";
 
 @Component({
   selector: "app-layout",
@@ -17,17 +17,19 @@ export class AuthLayoutComponent implements AfterViewInit {
   private _router: Subscription;
 
   constructor(
-    public authService: AuthService,
+    public globalService: GlobalService,
     private router: Router,
     private element: ElementRef
   ) {
     this.sidebarVisible = false;
-    if (this.authService.currentUserValue) {
-      this.isLogedIn = true;
-      this.router.navigate(['/system/dashboard']);
-    } else {
-      this.isLogedIn = false;
-    }
+    this.globalService.currentUserObservable.subscribe((user) => {
+      if (user) {
+        this.isLogedIn = true;
+        this.router.navigate(['/system/dashboard']);
+      } else {
+        this.isLogedIn = false;
+      }
+    })
   }
   ngAfterViewInit() {
     const navbar: HTMLElement = this.element.nativeElement;
@@ -87,7 +89,7 @@ export class AuthLayoutComponent implements AfterViewInit {
   sidebarClose() {
     var $toggle = document.getElementsByClassName("navbar-toggler")[0];
     const body = document.getElementsByTagName("body")[0];
-    this.toggleButton.classList.remove("toggled");
+    this.toggleButton?.classList.remove("toggled");
     var $layer = document.createElement("div");
     $layer.setAttribute("class", "close-layer");
 

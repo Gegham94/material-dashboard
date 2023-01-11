@@ -1,9 +1,10 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from "@angular/core";
-import { ROUTES } from "../.././sidebar/sidebar.component";
+import { SidebarService } from "../../core/services/sidebar.service";
 import { Router, NavigationEnd } from "@angular/router";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
 import { Location } from "@angular/common";
+import { TranslateService } from "@ngx-translate/core";
 
 const misc: any = {
   navbar_menu_visible: 0,
@@ -32,7 +33,9 @@ export class NavbarComponent implements OnInit {
     location: Location,
     private renderer: Renderer2,
     private element: ElementRef,
-    private router: Router
+    private router: Router,
+    private readonly sidebarService: SidebarService,
+    private readonly translateService: TranslateService,
   ) {
     this.location = location;
     this.nativeElement = element.nativeElement;
@@ -96,7 +99,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter((listTitle) => listTitle);
+    this.listTitles = this.sidebarService.sidebar.filter((listTitle) => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     const body = document.getElementsByTagName("body")[0];
     this.toggleButton = navbar.getElementsByClassName("navbar-toggler")[0];
@@ -204,20 +207,25 @@ export class NavbarComponent implements OnInit {
     for (let i = 0; i < this.listTitles.length; i++) {
       if (
         this.listTitles[i].type === "link" &&
-        this.listTitles[i].path === titlee
+        titlee.includes(this.listTitles[i].path)
+        // this.listTitles[i].path === titlee.split("?")[0]
       ) {
-        return this.listTitles[i].title;
-      } else if (this.listTitles[i].type === "sub") {
-        for (let j = 0; j < this.listTitles[i].children.length; j++) {
-          let subtitle =
-            this.listTitles[i].path + "/" + this.listTitles[i].children[j].path;
-          if (subtitle === titlee) {
-            return this.listTitles[i].children[j].title;
-          }
-        }
+        return this.listTitles[i].translateKey;
       }
+      if (titlee.includes('my-profile')){
+        return this.translateService.instant('dashboard.my_profile');
+      }
+      // else if (this.listTitles[i].type === "sub") {
+      //   for (let j = 0; j < this.listTitles[i].children.length; j++) {
+      //     let subtitle =
+      //       this.listTitles[i].path + "/" + this.listTitles[i].children[j].path;
+      //     if (subtitle === titlee) {
+      //       return this.listTitles[i].children[j].title;
+      //     }
+      //   }
+      // }
     }
-    return "Dashboard";
+    return "";
   }
   getPath() {
     return this.location.prepareExternalUrl(this.location.path());

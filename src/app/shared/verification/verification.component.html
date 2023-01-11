@@ -1,50 +1,155 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="course">
-                            <div class="image-keeper">
-                                <img class="image" alt="Course Example" src="{{
-      approveCourseData?.cover_image
-        ? approveCourseData?.cover_image
-        : 'assets/img/empty-course-image.png'
-      }}"
-                                />
-                            </div>
-                            <div class="details_keeper">
-                                <div class="col-12 md:col-12 md:col-12">
-                                    <div class="stat">
-                                        <p class="label">Title:<span> {{approveCourseData?.title}}</span></p>
-                                    </div>
-                                    <div class="stat">
-                                        <p class="label">Subtitle:<span> {{approveCourseData?.sub_title}}</span></p>
-
-                                    </div>
-                                    <div class="stat">
-                                        <p class="label">Rating: <span> {{approveCourseData?.rate}}</span></p>
-
-                                    </div>
-                                    <div class="stat">
-                                        <div class="label">
-                                            <p class="value">Price: {{approveCourseData?.price }}
-                                            <span *ngIf="approveCourseData?.currency==='AMD'">֏</span>
-                                            <span *ngIf="approveCourseData?.currency==='USD'">$</span></p>
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive" *ngIf="!isLoading; else spinerModel">
+              <table class="table">
+                <thead class="text-center">
+                  <tr>
+                    <th scope="col">Field</th>
+                    <th scope="col" *ngIf="hasOldValue">Old Value</th>
+                    <th scope="col">New Value</th>
+                    <th scope="col" *ngIf="newData.status === 2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngFor="let item of newData | keyvalue">
+                    <td>{{changeKeys(item.key) | titlecase}}</td>
+                    <td  *ngIf="hasOldValue">
+                       <span [ngSwitch]="item.key">
+                        <span  *ngSwitchCase="'cover_image'"><img *ngIf="oldData[item.key]; else emptyValue"  class="cover_img" [src]="oldData[item.key]"></span>
+                        <div class="desc_content" *ngSwitchCase="'description'">
+                          <p class="desc" *ngIf="oldData[item.key]; else emptyValue" [innerHTML]="oldData[item.key]"></p>
+                          <a class="desc__show" (click)="openDescriptionViewModal(oldData[item.key])">
+                            Show All
+                          </a>
                         </div>
-                        <div class="d-flex justify-content-center">
-                            <button mat-raised-button (click)="approveCourse()" class="btn btn-info btn-lg">Approve</button>
-                            <button mat-raised-button (click)="openDecline()" class="btn btn-primary btn-lg">Decline</button>
+
+                         <div  *ngSwitchCase="'sections'">
+                          <button mat-icon-button class="btn btn-success" *ngIf="item.value && item.value.length > 0; else emptyValue" (click)="openSectionsViewPopup()">
+                            <i class="material-icons">remove_red_eye</i>
+                          </button>
                         </div>
-                    </div>
-                </div>
+
+                        <div  *ngSwitchCase="'will_learn'" class="desc_content">
+                          <ul class="will_learn" *ngIf="oldData[item.key] && oldData[item.key].length > 0; else emptyValue">
+                            <li *ngFor="let p of oldData[item.key]">{{p}}</li>
+                          </ul>
+                        </div>
+                        <div  *ngSwitchCase="'requirements'" class="desc_content">
+                          <ul class="will_learn" *ngIf="oldData[item.key] && oldData[item.key].length > 0; else emptyValue">
+                            <li *ngFor="let p of oldData[item.key]">{{p}}</li>
+                          </ul>
+                        </div>
+                         <div *ngSwitchCase="'promo_video'">
+                           <ng-container *ngIf="oldData[item.key]; else emptyValue">
+                             <iframe
+                               width="150"
+                               height="100"
+                               [src]="getSafeUrl(embedVideo(oldData[item.key]))"
+                               frameborder="0"
+                               webkitallowfullscreen
+                               mozallowfullscreen
+                               allowfullscreen
+                             ></iframe>
+                           </ng-container>
+                         </div>
+                        <div  *ngSwitchCase="'price'">
+                          <ng-container *ngIf="+item.value !== 0; else free">
+                            {{+item.value}} ֏
+                          </ng-container>
+                        </div>
+                        <span *ngSwitchDefault>
+                          <ng-container *ngIf="!!oldData[item.key] && oldData[item.key].length !== 0; else emptyValue">
+                            {{oldData[item.key]}}
+                          </ng-container>
+                        </span>
+                      </span>
+                    </td>
+                    <td>
+                      <span [ngSwitch]="item.key">
+                        <span *ngSwitchCase="'cover_image'"><img *ngIf="item.value; else emptyValue" class="cover_img" [src]="item.value"></span>
+                        <div  *ngSwitchCase="'description'" class="desc_content">
+                          <p class="desc" *ngIf="item.value; else emptyValue"  [innerHTML]="item.value"></p>
+                          <a class="desc__show" (click)="openDescriptionViewModal(item.value)">
+                            Show All
+                          </a>
+                        </div>
+                        <div  *ngSwitchCase="'sections'" class="">
+                          <button mat-icon-button class="btn btn-success" *ngIf="item.value && item.value.length > 0; else emptyValue" (click)="openSectionsViewPopup()">
+                            <i class="material-icons">remove_red_eye</i>
+                          </button>
+                        </div>
+
+                        <div  *ngSwitchCase="'will_learn'" class="desc_content">
+                          <ul class="will_learn" *ngIf="item.value && item.value.length > 0; else emptyValue">
+                            <li *ngFor="let p of item.value">{{p}}</li>
+                          </ul>
+                        </div>
+                        <div  *ngSwitchCase="'requirements'" class="desc_content">
+                          <ul class="will_learn" *ngIf="item.value && item.value.length > 0; else emptyValue">
+                            <li *ngFor="let p of item.value">{{p}}</li>
+                          </ul>
+                        </div>
+                        <div *ngSwitchCase="'promo_video'">
+                           <ng-container *ngIf="item.value; else emptyValue">
+                             <iframe
+                                 width="450"
+                                 height="250"
+                                 [src]="item.value"
+                                 frameborder="0"
+                                 webkitallowfullscreen
+                                 mozallowfullscreen
+                                 allowfullscreen
+                             ></iframe>
+                           </ng-container>
+                         </div>
+                        <div  *ngSwitchCase="'price'">
+                          <ng-container *ngIf="+item.value !== 0; else free">
+                            {{+item.value}} ֏
+                          </ng-container>
+                        </div>
+                        <span *ngSwitchDefault>
+                          <ng-container *ngIf="(item.value === 0 || !!item.value) && item.value.length !== 0; else emptyValue">
+                            {{item.value}}
+                          </ng-container>
+                        </span>
+                      </span>
+                    </td>
+                    <td *ngIf="newData.status === 2" class="td-actions text-center gap-1">
+                      <button type="button" rel="tooltip" class="btn btn-success mr-2" [class.btn-outline-success]="approvedKeys[item.key] === true" (click)="approveField(item.key)">
+                        <i class="material-icons">check</i>
+                      </button>
+                      <button type="button" rel="tooltip" class="btn btn-danger" [class.btn-outline-danger]="approvedKeys[item.key] === false || checkTypeOf(approvedKeys[item.key], 'string')" (click)="declineField(item.key)">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+            <ng-template #spinerModel>
+              <div class="loader-block">
+                <mat-spinner></mat-spinner>
+              </div>
+            </ng-template>
+
+            <div class="d-flex justify-content-end gap-2" *ngIf="newData?.status === 2">
+              <button mat-raised-button (click)="approveCourse()" class="btn btn-success btn-lg">Approve</button>
+              <button mat-raised-button (click)="openDecline()" class="btn btn-danger btn-lg">Decline</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-
+<ng-template #free>
+  Free
+</ng-template>
+<ng-template #emptyValue>
+  N/A
+</ng-template>

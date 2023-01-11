@@ -1,0 +1,18 @@
+.main-panel{
+  height: 100vh;
+  overflow-y: scroll;
+}
+/* width */
+.main-panel::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+.main-panel::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(163, 163, 163);
+  border-radius: 5px;
+}
+/* Handle */
+.main-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(60deg, #a3a2a3, #3d3c3d);
+  border-radius: 5px;
+}

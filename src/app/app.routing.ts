@@ -1,76 +1,105 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from "./core/guards";
+import { AuthGuard } from './core/guards';
 
-import { AdminLayoutComponent } from "./layouts/admin/admin-layout.component";
+import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 
 export const routes: Routes = [
   {
-    path: "",
-    loadChildren: () => import("./layouts/auth/auth-layout.module").then((m) => m.AuthLayoutModule),
+    path: '',
+    loadChildren: () => import('./layouts/auth/auth-layout.module').then((m) => m.AuthLayoutModule),
   },
   {
-    path: "system",
+    path: 'system',
     component: AdminLayoutComponent,
     children: [
       {
-        path: "",
-        redirectTo: "dashboard",
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard',
       },
       {
-        path: "dashboard",
-        loadChildren: () => import("./sidebar/dashboard/dashboard.module").then((m) => m.DashboardModule),
+        path: 'dashboard',
+        loadChildren: () => import('./sidebar/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
-        path: "users",
-        loadChildren: () => import("./sidebar/users/users.module").then((m) => m.UsersModule),
+        path: 'my-profile',
+        loadChildren: () => import('./sidebar/my-profile/my-profile.module').then((m) => m.MyProfileModule),
       },
       {
-        path: "categories",
-        loadChildren: () => import("./sidebar/categories/categories.module").then((m) => m.CategoriesModule),
+        path: 'change-password',
+        loadChildren: () => import('./sidebar/change-password/change-password.module').then((m) => m.ChangePasswordModule),
       },
       {
-        path: "courses",
-        loadChildren: () => import("./sidebar/courses/courses.module").then((m) => m.CoursesModule),
+        path: 'users',
+        loadChildren: () => import('./sidebar/users/users.module').then((m) => m.UsersModule),
       },
       {
-        path: "users-management",
-        loadChildren: () => import("./sidebar/users-management/users-management.module").then((m) => m.UsersManagementModule),
+        path: 'courses',
+        loadChildren: () => import('./sidebar/courses/courses.module').then((m) => m.CoursesModule),
       },
       {
-        path: "components",
-        loadChildren: () => import("./sidebar/components/components.module").then((m) => m.ComponentsModule),
+        path: 'categories',
+        loadChildren: () => import('./sidebar/categories/categories.module').then((m) => m.CategoriesModule),
       },
       {
-        path: "forms",
-        loadChildren: () => import("./sidebar/forms/forms.module").then((m) => m.Forms),
+        path: "company-trainers",
+        loadChildren: () => import("./sidebar/company-trainers/company-trainers.module").then((m) => m.CompanyTrainersModule),
       },
       {
-        path: "tables",
-        loadChildren: () => import("./sidebar/tables/tables.module").then((m) => m.TablesModule),
+        path: "trainer/:id",
+        loadChildren: () => import("./sidebar/trainer/trainer.module").then((m) => m.TrainerModule),
       },
       {
-        path: "maps",
-        loadChildren: () => import("./sidebar/maps/maps.module").then((m) => m.MapsModule),
+        path: 'notification',
+        loadChildren: () => import('./sidebar/all-notification/all-notification.module').then((m) => m.AllNotificationModule),
       },
       {
-        path: "widgets",
-        loadChildren: () => import("./sidebar/widgets/widgets.module").then((m) => m.WidgetsModule),
+        path: 'users-management',
+        loadChildren: () => import('./sidebar/users-management/users-management.module').then((m) => m.UsersManagementModule),
       },
       {
-        path: "charts",
-        loadChildren: () => import("./sidebar/charts/charts.module").then((m) => m.ChartsModule),
+        path: 'categories-management',
+        loadChildren: () => import('./sidebar/categories-management/categories-management.module').then((m) => m.CategoriesManagementModule),
       },
-      {
-        path: "calendar",
-        loadChildren: () => import("./sidebar/calendar/calendar.module").then((m) => m.CalendarModule),
-      }
+      // {
+      //   path: 'components',
+      //   loadChildren: () => import('./sidebar/components/components.module').then((m) => m.ComponentsModule),
+      // },
+      // {
+      //   path: 'forms',
+      //   loadChildren: () => import('./sidebar/forms/forms.module').then((m) => m.Forms),
+      // },
+      // {
+      //   path: 'tables',
+      //   loadChildren: () => import('./sidebar/tables/tables.module').then((m) => m.TablesModule),
+      // },
+      // {
+      //   path: 'maps',
+      //   loadChildren: () => import('./sidebar/maps/maps.module').then((m) => m.MapsModule),
+      // },
+      // {
+      //   path: 'widgets',
+      //   loadChildren: () => import('./sidebar/widgets/widgets.module').then((m) => m.WidgetsModule),
+      // },
+      // {
+      //   path: 'charts',
+      //   loadChildren: () => import('./sidebar/charts/charts.module').then((m) => m.ChartsModule),
+      // },
+      // {
+      //   path: 'calendar',
+      //   loadChildren: () => import('./sidebar/calendar/calendar.module').then((m) => m.CalendarModule),
+      // },
+      // {
+      //   path: "calendar",
+      //   loadChildren: () => import("./sidebar/calendar/calendar.module").then((m) => m.CalendarModule),
+      // },
     ],
     canActivate: [AuthGuard],
   },
   {
-    path: "**",
-    redirectTo: "/system/dashboard",
+    path: '**',
+    redirectTo: '/system/dashboard',
   },
 ];
 

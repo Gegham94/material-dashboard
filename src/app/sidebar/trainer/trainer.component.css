@@ -1,0 +1,58 @@
+.loader-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+::ng-deep.mat-progress-spinner {
+  width: 50px !important;
+  height: 90px !important;
+}
+::ng-deep.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: blueviolet;
+}
+::ng-deep.mat-progress-spinner svg {
+  width: 50px !important;
+}
+.card-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.card_title_part {
+  width: 100%;
+}
+.create-new-category {
+  font-family: "Open Sans", sans-serif;
+  white-space: nowrap !important;
+  margin-top: 10px !important;
+  height: 40px;
+}
+.card-body {
+  margin-top: 0;
+  padding-top: 0;
+}
+.image {
+  float: left;
+  margin: 0 20px 10px 0;
+  width: 200px;
+  height: 200px;
+}
+.bio {
+  text-align: justify;
+  font-size: 16px;
+  line-height: 30px;
+}
+.user-name {
+  font-size: 25px;
+  font-weight: 400;
+}
+.name-surname {
+  margin-bottom: 10px;
+}
+.user-name.name {
+  margin-right: 10px;
+  display: inline-block;
+}

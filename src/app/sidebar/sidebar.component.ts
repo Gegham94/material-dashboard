@@ -1,147 +1,29 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import PerfectScrollbar from "perfect-scrollbar";
+import { PublicUser } from "./../core/interfaces/public-user.interface";
+// import PerfectScrollbar from "perfect-scrollbar";
 import { AuthService } from "../core/services/auth.service";
+import { GlobalService } from "../core/services/global.service";
+import { SidebarService } from '../core/services/sidebar.service';
+import { Subject, takeUntil } from "rxjs";
 
 declare const $: any;
-
-//Metadata
-export interface RouteInfo {
-  path: string;
-  title: string;
-  type: string;
-  icontype: string;
-  collapse?: string;
-  children?: ChildrenItems[];
-}
-
-export interface ChildrenItems {
-  path: string;
-  title: string;
-  ab: string;
-  type?: string;
-}
-
-//Menu Items
-export const ROUTES: RouteInfo[] = [
-  {
-    path: "/system/dashboard",
-    title: "Dashboard",
-    type: "link",
-    icontype: "dashboard",
-  },
-  {
-    path: "/system/users",
-    title: "Users",
-    type: "link",
-    icontype: "supervisor_account",
-  },
-  {
-    path: "/system/courses",
-    title: "Courses",
-    type: "link",
-    icontype: "auto_stories",
-  },
-  {
-    path: "/system/categories",
-    title: "Categories",
-    type: "link",
-    icontype: "category",
-  },
-  {
-    path: "/system/users-management",
-    title: "Users Management",
-    type: "link",
-    icontype: "person_add_alt",
-  },
-  {
-    path: "/system/documentation",
-    title: "Documentation",
-    type: "link",
-    icontype: "assignment",
-  },
-  // {
-  //   path: "/system/components",
-  //   title: "Components",
-  //   type: "sub",
-  //   icontype: "apps",
-  //   collapse: "components",
-  //   children: [
-  //     { path: "buttons", title: "Buttons", ab: "B" },
-  //     { path: "grid", title: "Grid System", ab: "GS" },
-  //     { path: "panels", title: "Panels", ab: "P" },
-  //     { path: "sweet-alert", title: "Sweet Alert", ab: "SA" },
-  //     { path: "notifications", title: "Notifications", ab: "N" },
-  //     { path: "icons", title: "Icons", ab: "I" },
-  //     { path: "typography", title: "Typography", ab: "T" },
-  //   ],
-  // },
-  // {
-  //   path: "/system/forms",
-  //   title: "Forms",
-  //   type: "sub",
-  //   icontype: "content_paste",
-  //   collapse: "forms",
-  //   children: [
-  //     { path: "regular", title: "Regular Forms", ab: "RF" },
-  //     { path: "extended", title: "Extended Forms", ab: "EF" },
-  //     { path: "validation", title: "Validation Forms", ab: "VF" },
-  //     { path: "wizard", title: "Wizard", ab: "W" },
-  //   ],
-  // },
-  // {
-  //   path: "/system/tables",
-  //   title: "Tables",
-  //   type: "sub",
-  //   icontype: "grid_on",
-  //   collapse: "tables",
-  //   children: [
-  //     { path: "regular", title: "Regular Tables", ab: "RT" },
-  //     { path: "extended", title: "Extended Tables", ab: "ET" },
-  //     { path: "datatables.net", title: "Datatables.net", ab: "DT" },
-  //   ],
-  // },
-  // {
-  //   path: "/system/maps",
-  //   title: "Maps",
-  //   type: "sub",
-  //   icontype: "place",
-  //   collapse: "maps",
-  //   children: [
-  //     { path: "vector", title: "Vector Map", ab: "VM" },
-  //   ],
-  // },
-  // {
-  //   path: "/system/widgets",
-  //   title: "Widgets",
-  //   type: "link",
-  //   icontype: "widgets",
-  // },
-  // {
-  //   path: "/system/charts",
-  //   title: "Charts",
-  //   type: "link",
-  //   icontype: "timeline",
-  // },
-  // {
-  //   path: "/system/calendar",
-  //   title: "Calendar",
-  //   type: "link",
-  //   icontype: "date_range",
-  // },
-];
 
 @Component({
   selector: "app-sidebar-cmp",
   templateUrl: "sidebar.component.html",
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   public isLoading: boolean = false;
+  public currentUser: PublicUser;
+  public destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    private readonly globalService: GlobalService,
+    private readonly sidebarService: SidebarService,
   ){}
 
   public menuItems: any[];
@@ -152,21 +34,30 @@ export class SidebarComponent implements OnInit {
     }
     return true;
   }
-  ngOnInit() {
-    this.menuItems = ROUTES.filter((menuItem) => menuItem);
+
+  public ngOnInit() {
+    this.globalService.currentUserObservable.pipe(takeUntil(this.destroy$))
+    .subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+        this.isLoading = false;
+      }
+    });
+    this.menuItems = this.sidebarService.sidebar.filter((menuItem) => menuItem);
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
       const elemSidebar = <HTMLElement>(
         document.querySelector(".sidebar .sidebar-wrapper")
       );
-      this.ps = new PerfectScrollbar(elemSidebar);
+      // this.ps = new PerfectScrollbar(elemSidebar);
     }
   }
-  updatePS(): void {
+  
+  public updatePS(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
       this.ps.update();
     }
   }
-  isMac(): boolean {
+  public isMac(): boolean {
     let bool = false;
     if (
       navigator.platform.toUpperCase().indexOf("MAC") >= 0 ||
@@ -176,7 +67,7 @@ export class SidebarComponent implements OnInit {
     }
     return bool;
   }
-  logout(): void {
+  public logout(): void {
     this.isLoading = true;
     this.authService.logout().subscribe((response) => {
       if (response.success === true) {
@@ -184,5 +75,10 @@ export class SidebarComponent implements OnInit {
         this.router.navigate(['']);
       }
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

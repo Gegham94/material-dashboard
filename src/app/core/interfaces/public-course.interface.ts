@@ -1,4 +1,5 @@
-import { CourseType } from '../enums/course-type.enum';
+import { CourseType,  } from '../enums/course-type.enum';
+import { CourseStatus } from '../enums/course-status.enum';
 
 export interface PublicCourse {
   id: number,
@@ -10,7 +11,7 @@ export interface PublicCourse {
   sub_title: string,
   language: number,
   type: CourseType,
-  status: number,
+  status: CourseStatus,
   category_id: number,
   lessons_count: number,
   max_participants: number,

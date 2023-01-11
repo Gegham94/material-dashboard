@@ -11,6 +11,7 @@ interface DeleteItem {
   delete_item: string;
   item_id: number;
   item_title: string;
+  item_second_title: string;
 }
 
 @Component({
@@ -30,40 +31,37 @@ export class DeleteDialogComponent implements OnInit {
     private toastrMessageService: ToastrMessageService
   ) { }
 
-  public ngOnInit() {
-  }
+  public ngOnInit() { }
 
   public deleteItem() {
     this.isLoadingButton = true;
-    switch (this._data.delete_item) {
-      case 'course':
-        this.coursesService.deleteCourse(this._data.item_id).subscribe((res) => {
-          if (res.success === true) {
-            this.toastrMessageService.showSuccess(res.message, 'Done !');
-          } else {
-            this.toastrMessageService.showError(res.message, 'Ooops !');
-          }
-          this.isLoadingButton = false;
-          this.dialogRef.close();
-        });
-        break;
-      case 'user':
-        this.usersService.deleteUser(this._data.item_id).subscribe((res) => {
-          if (res.success === true) {
-            this.toastrMessageService.showSuccess(res.message, 'Done !');
-          } else {
-            this.toastrMessageService.showError(res.message, 'Ooops !');
-          }
-          this.isLoadingButton = false;
-          this.dialogRef.close();
-        });
-        break;
+    if (this._data.delete_item === 'COURSE' || this._data.delete_item === 'ԴԱՍԸՆԹԱՑԸ') {
+      this.coursesService.deleteCourse(this._data.item_id).subscribe((res) => {
+        if (res.success === true) {
+          this.toastrMessageService.showSuccess(res.message, 'Done !');
+        } else {
+          this.toastrMessageService.showError(res.message, 'Ooops !');
+        }
+        this.isLoadingButton = false;
+        this.dialogRef.close(true);
+      });
+    }
+    if (this._data.delete_item === 'USER' || this._data.delete_item === 'ՕԳՏԱՏԻՐՈՋԸ') {
+      this.usersService.deleteUser(this._data.item_id).subscribe((res) => {
+        if (res.success === true) {
+          this.toastrMessageService.showSuccess(res.message, 'Done !');
+        } else {
+          this.toastrMessageService.showError(res.message, 'Ooops !');
+        }
+        this.isLoadingButton = false;
+        this.dialogRef.close(true);
+      });
     }
   }
 
   public closeDialog() {
     this.isLoadingButton = false;
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
 }

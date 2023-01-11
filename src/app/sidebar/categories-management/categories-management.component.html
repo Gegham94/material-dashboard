@@ -1,0 +1,77 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card_title_part">
+              <div class="card-icon">
+                <i class="material-icons">category</i>
+              </div>
+              <h4 class="card-title">{{'category_table.create_category' | translate}}</h4>
+            </div>
+          </div>
+          <div class="card-body ">
+            <div *ngIf="showLoader" class="loader-block">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div *ngIf="!showLoader" class="content">
+              <div *ngFor="let form of allForms; let i = index" class="input-side">
+                <form [formGroup]="form" class="category-form" action="">
+                  <div class="input">
+                    <span *ngIf="i === 0" class="title-label">{{'category_management.armenian' | translate}}</span>
+                    <input [class.error]="form.controls.armenian.invalid && form.controls.armenian.touched"
+                      formControlName="armenian" placeholder="{{'category_management.category_name' | translate}}*"
+                      class="category" type="text">
+                    <span [class.show]="form.controls.armenian.invalid && form.controls.armenian.touched"
+                      class="required">{{'category_management.this_fiels_is_required' | translate}}</span>
+                  </div>
+                  <div class="input">
+                    <span *ngIf="i === 0" class="title-label">{{'category_management.english' | translate}}</span>
+                    <input [class.error]="form.controls.english.invalid && form.controls.english.touched"
+                      formControlName="english" placeholder="{{'category_management.category_name' | translate}}*"
+                      class="category" type="text">
+                    <span [class.show]="form.controls.english.invalid && form.controls.english.touched"
+                      class="required">{{'category_management.this_fiels_is_required' | translate}}</span>
+                  </div>
+                  <div class="input">
+                    <span *ngIf="i === 0" class="title-label">{{'category_management.ordering' | translate}}</span>
+                    <input [class.error]="form.controls.ordering.invalid && form.controls.ordering.touched"
+                      formControlName="ordering" placeholder="{{'category_management.ordering' | translate}}*"
+                      class="category" type="text">
+                    <span [class.show]="form.controls.ordering.invalid && form.controls.ordering.touched"
+                      class="required">{{'category_management.this_fiels_is_required' | translate}}</span>
+                  </div>
+                  <div *ngIf="isParent" class="input">
+                    <span *ngIf="i === 0" class="title-label">{{'category_management.parent_category' |
+                      translate}}</span>
+                    <p-dropdown [options]="parentCategories" formControlName="category" dataKey="label"
+                      [ngModelOptions]="{standalone: true}" optionLabel="label" [filter]="true" filterBy="label"
+                      [showClear]="true" placeholder="Select parent category">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="country-item country-item-value">
+                          <div>{{form.controls.category.value.label}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-country pTemplate="item">
+                        <div class="country-item">
+                          <div>{{country.label}}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                  <button *ngIf="allForms.length !== 1" class="delete" (click)="deleteForm(i)">-</button>
+                </form>
+              </div>
+              <div class="input btn-input">
+                <button [class.active]="checkValidation" (click)="addCategory()"
+                  class="submit">{{'category_management.save' | translate}}</button>
+                <button *ngIf="isParent" (click)="addNewForm()" class="submit plus">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

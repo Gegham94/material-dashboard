@@ -8,11 +8,11 @@
               <div class="card-icon">
                 <i class="material-icons">person_add_alt</i>
               </div>
-              <h4 class="card-title">Create Admin or Moderator</h4>
+              <h4 class="card-title">{{"user.create.create_user" | translate}}</h4>
             </div>
           </div>
           <div class="card-body ">
-            <form [formGroup]="adminModeratorForm">
+            <form [formGroup]="userManagementForm">
               <div class="container">
                 <div class="row form_row">
                   <span class="col-6 form_field">
@@ -20,13 +20,13 @@
                       <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                          <input type="text" pInputText formControlName="first_name" placeholder="First Name" required>
+                          <input type="text" pInputText formControlName="first_name" placeholder="{{'user.table.first_name' | translate}}" required>
                           <div class="errors_text"
                             *ngIf="f['first_name'].errors?.['required'] && (f['first_name'].dirty || f['first_name'].touched)">
-                            <p>First Name is required</p>
+                            <p>{{"user.create.required_first_name" | translate}}</p>
                           </div>
                           <div class="errors_text" *ngIf="f['first_name'].errors?.['pattern']">
-                            <p>First Name length must be at least from 3 to 22 symbols</p>
+                            <p>{{"user.create.first_name_validation" | translate}}</p>
                           </div>
                         </div>
                       </div>
@@ -37,13 +37,13 @@
                       <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                          <input type="text" pInputText formControlName="last_name" placeholder="Last Name" required>
+                          <input type="text" pInputText formControlName="last_name" placeholder="{{'user.table.last_name' | translate}}" required>
                           <div class="errors_text"
                             *ngIf="f['last_name'].errors?.['required'] && (f['last_name'].dirty || f['last_name'].touched)">
-                            <p>Last Name is required</p>
+                            <p>{{"user.create.required_last_name" | translate}}</p>
                           </div>
                           <div class="errors_text" *ngIf="f['last_name'].errors?.['pattern']">
-                            <p>Last Name length must be at least from 3 to 22 symbols</p>
+                            <p>{{"user.create.last_name_validation" | translate}}</p>
                           </div>
                         </div>
                       </div>
@@ -54,15 +54,15 @@
                       <div class="p-col-12 p-md-4">
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="material-icons">alternate_email</i></span>
-                          <input type="email" pInputText formControlName="email" placeholder="Email" autocomplete="off"
-                            [ngClass]="{ error: adminModeratorForm.controls.email.errors?.['pattern'] || emailError}"
+                          <input type="email" pInputText formControlName="email" placeholder="{{'user.table.email' | translate}}" autocomplete="off"
+                            [ngClass]="{ error: userManagementForm.controls.email.errors?.['pattern'] || emailError}"
                             required>
                           <div class="errors_text"
                             *ngIf="f['email'].errors?.['required'] && (f['email'].dirty || f['email'].touched)">
-                            <p>Email is required.</p>
+                            <p>{{"user.create.required_email" | translate}}</p>
                           </div>
                           <div class="errors_text" *ngIf="f['email'].errors?.['pattern']">
-                            <p>Incorrect E-Mail Address</p>
+                            <p>{{"user.create.email_validation" | translate}}</p>
                           </div>
                           <div class="errors_text" *ngIf="errorMessage">
                             <p>{{ errorMessage }}</p>
@@ -77,18 +77,18 @@
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="material-icons">vpn_key</i></span>
                           <input type="{{ fieldTextType ? 'text' : 'password' }}" pInputText formControlName="password" autocomplete="new-password"
-                            placeholder="Password" required>
-                          <span *ngIf="adminModeratorForm.value.password && adminModeratorForm.value.password.length>0"
+                            placeholder="{{'user.create.password' | translate}}" required>
+                          <span *ngIf="userManagementForm.value.password && userManagementForm.value.password.length>0"
                             class="p-inputgroup-addon password_toggle" (click)="toggleShowPassword()">
                             <i class="material-icons" [hidden]="!showPassword">visibility_off</i>
                             <i class="material-icons" [hidden]="showPassword">visibility</i>
                           </span>
                           <div class="errors_text"
                             *ngIf="f['password'].errors?.['required'] && (f['password'].dirty || f['password'].touched)">
-                            <p>Password is required</p>
+                            <p>{{"user.create.required_password" | translate}}</p>
                           </div>
                           <div class="errors_text" *ngIf="f['password'].errors?.['pattern']">
-                            <p>Password length must be at least 8 symbols</p>
+                            <p>{{"user.create.password_validation" | translate}}</p>
                           </div>
                         </div>
                       </div>
@@ -97,16 +97,31 @@
                   <span class="col-6 form_field">
                     <div class="p-grid p-fluid">
                       <div class="p-col-12 p-md-4">
-                        <label class="role_label" class="role_label mb-3">ROLE</label>
+                        <label class="role_label" class="role_label mb-3">{{"user.create.role" | translate}}</label>
                         <div class="p-field-radiobutton mb-3">
                           <p-radioButton name="role_id" value="1" inputId="administrator"
                             formControlName="role_id"></p-radioButton>
-                          <label for="administrator" class="radio_text m-0 pl-2">Administrator</label>
+                          <label for="administrator" class="radio_text m-0 pl-2">{{"user.role.administrator" | translate}}</label>
                         </div>
                         <div class="p-field-radiobutton mb-3">
                           <p-radioButton name="role_id" value="2" inputId="moderator"
                             formControlName="role_id"></p-radioButton>
-                          <label for="moderator" class="radio_text m-0 pl-2">Moderator</label>
+                          <label for="moderator" class="radio_text m-0 pl-2">{{"user.role.moderator" | translate}}</label>
+                        </div>
+                        <div class="p-field-radiobutton mb-3">
+                          <p-radioButton name="role_id" value="3" inputId="trainer"
+                            formControlName="role_id"></p-radioButton>
+                          <label for="trainer" class="radio_text m-0 pl-2">{{"user.role.trainer" | translate}}</label>
+                        </div>
+                        <div class="p-field-radiobutton mb-3">
+                          <p-radioButton name="role_id" value="4" inputId="trainint_center"
+                            formControlName="role_id"></p-radioButton>
+                          <label for="trainint_center" class="radio_text m-0 pl-2">{{"user.role.training_center" | translate}}</label>
+                        </div>
+                        <div class="p-field-radiobutton mb-3">
+                          <p-radioButton name="role_id" value="5" inputId="student"
+                            formControlName="role_id"></p-radioButton>
+                          <label for="student" class="radio_text m-0 pl-2">{{"user.role.student" | translate}}</label>
                         </div>
                       </div>
                     </div>
@@ -114,7 +129,7 @@
                   <span class="col-6 create_btn">
                     <div class="p-grid p-fluid">
                       <div class="p-col-12 p-md-4">
-                        <p-button label="Create" (onClick)="submitForm()" [disabled]="adminModeratorForm.invalid">
+                        <p-button label="{{'user.create.create' | translate}}" (onClick)="submitForm()" [disabled]="userManagementForm.invalid">
                           <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-2"></span>
                         </p-button>
                       </div>

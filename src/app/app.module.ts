@@ -36,7 +36,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
-import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatPaginatorIntl, MatPaginatorModule } from "@angular/material/paginator";
 
 import { AppComponent } from "./app.component";
 
@@ -55,7 +55,9 @@ import { AppRoutingModule } from "./app.routing";
 import { AuthGuard } from "./core/guards";
 import { TranslatedTitleService } from "./shared/services/translated-title.service";
 import { DeleteDialogModule } from "./shared/delete-dialog/delete-dialog.module";
-import {DeclineModalModule} from "./shared/decline-modal/decline-modal.module";
+import { DeclineModalModule } from "./shared/decline-modal/decline-modal.module";
+import { VerificationModule } from "./shared/verification/verification.module";
+import { getDutchPaginatorIntl } from './shared/pagination/translate-paginator-intl';
 
 @NgModule({
   exports: [
@@ -116,13 +118,15 @@ export class MaterialModule {}
     FixedpluginModule,
     LanguageModule,
     NotificationModule,
+    VerificationModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
     DeleteDialogModule,
-    DeclineModalModule
+    DeclineModalModule,
+    TranslateModule
   ],
   declarations: [AppComponent, AdminLayoutComponent],
   providers: [
@@ -130,6 +134,7 @@ export class MaterialModule {}
     MatNativeDateModule,
     AuthGuard,
     TranslatedTitleService,
+    { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }
   ],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AdminModerator } from "../interfaces/admin-moderator.interface";
+import { UserInterface } from "../interfaces/user.interface";
 
 import { environment } from "src/environments/environment";
 import { ResponseDTO } from "../interfaces/responseData.interface";
@@ -15,9 +15,9 @@ const headers = new HttpHeaders({ "Content-Type": "application/json" });
 export class UsersManagementService {
   constructor(private http: HttpClient) {}
 
-  public createUser(data: AdminModerator) {
+  public createUser(data: UserInterface) {
     return this.http
-      .post<ResponseDTO<AdminModerator>>(`${API_URL}/user/create`, data, {
+      .post<ResponseDTO<UserInterface>>(`${API_URL}/user/create`, data, {
         headers: headers,
       })
       .pipe(

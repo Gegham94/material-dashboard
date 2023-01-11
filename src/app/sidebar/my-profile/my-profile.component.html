@@ -1,0 +1,70 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card_title_part">
+              <div class="card-icon">
+                <i class="material-icons">person</i>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div *ngIf="!isLoading; else spinerModel">
+              <button type="button" class="btn change_password" routerLink="/system/change-password">{{'user.profile.change_password' | translate}}</button>
+              <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+                <div class="profile_form">
+                  <div class="avatar-upload">
+                    <div class="avatar-edit">
+                      <input type="file" formControlName="avatar" id="imageUpload" accept=".png, .jpg, .jpeg .svg .webp"
+                        #fileInput (change)="uploadFile($event)" />
+                    </div>
+                    <div class="avatar-preview">
+                      <div id="imagePreview" *ngIf="imageUrl===''; else selectedImage"
+                        style.backgroundImage="{{userData.avatar ? 'url('+ userData.avatar +')' : 'url(/assets/img/default-avatar.png)' }}">
+                      </div>
+                      <ng-template #selectedImage>
+                        <div id="imagePreview" style.backgroundImage="{{'url('+ imageUrl +')'}}">
+                        </div>
+                      </ng-template>
+                    </div>
+                    <a class="btn btn-just-icon btn-success upload_img_icon" (click)="fileInput.click()"><i
+                        class="material-icons row_action">file_upload</i></a>
+                  </div>
+                  <div class="profile-settings">
+                    <mat-form-field >
+                      <mat-label> {{'user.table.first_name' | translate}}</mat-label>
+                      <input formControlName="first_name" matInput/>
+                    </mat-form-field>
+                    <mat-form-field >
+                      <mat-label>{{'user.table.last_name' | translate}}</mat-label>
+                      <input formControlName="last_name" matInput/>
+                    </mat-form-field>
+                    <mat-form-field >
+                      <mat-label>{{'user.table.email' | translate}}</mat-label>
+                      <input formControlName="email" matInput/>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="save-content">
+                  <div class="save-btn" [ngClass]="{'disabled':!profileForm.valid}">
+                    <button class="btn btn-success save" [disabled]="!profileForm.valid">
+                      {{'user.profile.save' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <ng-template #spinerModel>
+              <div class="loader-block">
+                <mat-spinner></mat-spinner>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

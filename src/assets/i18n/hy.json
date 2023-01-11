@@ -3,7 +3,14 @@
     "toggle_navigation": "Փոխարկել նավիգացիան",
     "header": {
       "dashboard": "ՎԱՀԱՆԱԿ",
-      "log_in": "ՄՈՒՏՔ"
+      "log_in": "ՄՈՒՏՔ",
+      "header-notification": {
+        "notifications": "Ծանուցումներ",
+        "unread": "չընթերցված",
+        "mark-all": "Նշել բոլորը որպես կարդացված",
+        "see-all": "Տես բոլորը",
+        "no-notifications": "Ծանուցումներ չկան"
+      }
     },
     "log_in": {
       "log_in": "ՄՈՒՏՔ",
@@ -18,21 +25,28 @@
       "blog": "ԲԼՈԳ",
       "licenses": "ԼԻՑԵՆԶԻԱՆԵՐ",
       "made_with": "ստեղծել",
-      "by_creatice_tim": "Creative Tim-ի կողմից՝ ավելի լավ համացանցի համար:"
+      "by_creatice_tim": "Creative Tim-ի կողմից՝ ավելի լավ համացանցի համար:",
+      "copyright":"Հեղինակային իրավունք",
+      "all-right-reserved": "Բոլոր իրավունքները պաշտպանված են"
+    },
+    "search": "Որոնել",
+    "company-trainers": {
+      "add-trainer": "Ավելացնել ուսուցիչ",
+      "image": "Նկար",
+      "name": "Անուն",
+      "surname": "Ազգանուն",
+      "company": "Կազմակերպության անուն"
     }
   },
   "dashboard": {
-    "title": "Վահանակ",
-    "card_title": "Համաշխարհային վաճառք ըստ լավագույն վայրերի",
-    "fix_header": "Ուղղել վերնագիրը!",
-    "website_views": "Կայքի դիտումներ",
-    "last_campaign_performance": "Քարոզարշավի վերջին կատարումը",
-    "campaign_sent_2_days_ago": "քարոզարշավն ուղարկվել է 2 օր առաջ",
-    "daily_sales": "Ամենօրյա վաճառք",
-    "increase_in_today_sales": "այսօրվա վաճառքի աճը",
-    "updated_4_minutes_ago": "թարմացվել է 4 րոպե առաջ",
+    "my_profile": "Անձնական էջ",
+    "dashboard": "Վահանակ",
     "users": "Օգտատերեր",
-    "courses": "Դասընթացներ"
+    "courses": "Դասընթացներ",
+    "categories": "Կատեգորիաներ",
+    "documentation": "Փաստաթղթեր",
+    "company-trainers": "Դասընթացավարներ",
+    "all-notifications": "Բոլոր ծանուցումները"
   },
   "auth": {
     "login": {
@@ -41,5 +55,105 @@
       "upstart": "'Upstart'",
       "incorrect-login": "Սխալ մուտքագրման տվյալներ"
     }
-  }
+  },
+  "course" : {
+    "table": {
+      "title": "Անվանում",
+      "price": "Արժեք",
+      "type": "Տեսակ",
+      "status": "Կարգավիճակ"
+    },
+    "status": {
+      "draft": "Նախագծվում է",
+      "under_review": "Դիտարկվում է",
+      "approved": "Հաստատված է",
+      "declined": "Մերժված է",
+      "deleted": "Ջնջված է"
+    },
+    "type": {
+      "online": "Առցանց",
+      "offline": "Անցանց",
+      "online_webinar": "Առցանց վեբինար",
+      "consultation": "Խորհրդակցություն"
+    },
+    "price": {
+      "free": "ԱՆՎՃԱՐ"
+    },
+    "course": "ԴԱՍԸՆԹԱՑԸ",
+    "filter_by_status": "Ֆիլտրել ըստ կարգավիճակի",
+    "filter_by_type": "Ֆիլտրել ըստ տեսակի",
+    "search_course": "Փնտրել դասընթաց",
+    "delete_course": "Հեռացնել Դասընթացը"
+  },
+  "user" : {
+    "table": {
+      "image": "Նկար",
+      "first_name": "Անուն",
+      "last_name": "Ազգանուն",
+      "email": "Էլ․ Հասցե",
+      "role": "Դեր",
+      "this_fiels_is_required": "Այս դաշտը պարտադիր է",
+      "upload_image": "Բեռնել նկարը"
+    },
+    "profile": {
+      "edit_profile": "Խմբագրել անձնական էջը",
+      "logout": "Ելք",
+      "save": "Պահպանել",
+      "change_password": "Փոխել գաղտնաբառը",
+      "new_password": "Նոր գաղտնաբառ",
+      "repeat_password": "Կրկնել գաղտնաբառը"
+    },
+    "role": {
+      "administrator": "Ադմինիստրատոր",
+      "moderator": "Մոդերատոր",
+      "trainer": "Մարզիչ",
+      "training_center": "Մարզման կենտրոն",
+      "student": "Ուսանող"
+    },
+    "create": {
+      "create_user": "Ստեղծել Օգտատեր",
+      "create": "Ստեղծել",
+      "password": "Գաղտնաբառ",
+      "required_first_name": "Անունը պարտադիր է",
+      "required_last_name": "Ազգանունը պարտադիր է",
+      "required_email": "Էլ․ Հասցեն պարտադիր է",
+      "required_password": "Գաղտնաբառը պարտադիր է",
+      "first_name_validation": "Անունը պետք է պարունակի 3-ից 22 սիմվոլ",
+      "last_name_validation": "Ազգանունը պետք է պարունակի 3-ից 22 սիմվոլ",
+      "password_validation": "Գաղտնաբառը պետք է պարունակի առնվազն 8 սիմվոլ",
+      "email_validation": "Սխալ Էլ․ Հասցե",
+      "role": "Դեր"
+    },
+    "user": "ՕԳՏԱՏԻՐՈՋԸ",
+    "filter_by_role": "Ֆիլտրել ըստ Դերի",
+    "search_user": "Փնտրել Օգտատիրոջ",
+    "add_user": "Ավելացնել Օգտատեր",
+    "delete_user": "Հեռացնել Օգտատիրոջը"
+  },
+  "category_table": {
+    "image": "Նկար",
+    "title": "Վերնագիր",
+    "ordering": "Հերթականություն",
+    "edit": "Խմբագ..",
+    "delete": "Ջնջել",
+    "add_category": "Ավելացնել կատեգորիա",
+    "create_category": "Ստեղծել կատեգորիա"
+  },
+  "category_management": {
+    "armenian": "Հայկական",
+    "english": "Անգլիական",
+    "ordering": "Պատվեր",
+    "parent_category": "Ծնողի կատեգորիան",
+    "save": "Պահպանել",
+    "this_fiels_is_required": "Այս դաշտը պարտադիր է",
+    "category_name": "Կատեգորիայի անունը"
+  },
+  "confirm_dialog": {
+    "yes": "Այո",
+    "no": "Ոչ",
+    "ask": "Դուք համոզված եք որ ուզում եք ջնջել այս կատեգորիան?"
+  },
+  "delete": "ՀԵՌԱՑՆԵԼ",
+  "cancel": "Չեղարկել",
+  "confirm_delete_dialog": "Ցանկանու՞մ եք հեռացնել նշված "
 }

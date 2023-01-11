@@ -1,7 +1,36 @@
-.content{
-    width: 350px;
+.content {
+    width: 50vw;
 }
+
+@media screen and (max-width: 768px) {
+    .content {
+        width: 80vw;
+    }
+}
+
+::ng-deep .cdk-overlay-pane {
+    max-width: none!important;
+}
+
 .row_action {
     justify-content: flex-end;
     display: flex;
+    position: absolute;
+    top: 26px;
+    right: 26px;
+    cursor: pointer;
+}
+
+article {
+    white-space: pre;
+}
+
+h5 {
+    color: black;
+}
+
+::ng-deep .mat-dialog-container {
+    max-height: 100vh;
+    overflow-y: auto;
+    position: relative;
 }

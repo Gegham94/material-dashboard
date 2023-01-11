@@ -6,8 +6,9 @@ import {
   Validators,
 } from "@angular/forms";
 import { UsersManagementService } from "../../core/services/users-management.service";
-import { AdminModerator } from "../../core/interfaces/admin-moderator.interface";
+import { UserInterface } from "../../core/interfaces/user.interface";
 import { ToastrMessageService } from "../../core/services/toastr.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-users-management",
@@ -15,15 +16,16 @@ import { ToastrMessageService } from "../../core/services/toastr.service";
   styleUrls: ["./users-management.component.css"],
 })
 export class UsersManagementComponent implements OnInit {
+
   public errorMessage: string = "";
 
-  public adminModeratorForm: FormGroup;
+  public userManagementForm: FormGroup;
 
   public showPassword: boolean = false;
 
   public fieldTextType = false;
 
-  public userData: AdminModerator;
+  public userData: UserInterface;
 
   public emailError: string = "";
 
@@ -33,9 +35,10 @@ export class UsersManagementComponent implements OnInit {
 
   constructor(
     public usersManagementService: UsersManagementService,
-    private toastrMessageService: ToastrMessageService
+    private toastrMessageService: ToastrMessageService,
+    private translateService: TranslateService,
   ) {
-    this.adminModeratorForm = new FormGroup({
+    this.userManagementForm = new FormGroup({
       first_name: new FormControl("", [
         Validators.required,
         Validators.pattern(
@@ -63,7 +66,7 @@ export class UsersManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminModeratorForm.reset();
+    this.userManagementForm.reset();
   }
 
   public toggleShowPassword() {
@@ -71,10 +74,10 @@ export class UsersManagementComponent implements OnInit {
     this.fieldTextType = !this.fieldTextType;
   }
 
-  submitForm() {
+  public submitForm() {
     this.isLoading = true;
     let lang = localStorage.getItem("lang");
-    this.userData = this.adminModeratorForm.getRawValue();
+    this.userData = this.userManagementForm.getRawValue();
     this.userData.language_code = lang;
     this.usersManagementService.createUser(this.userData).subscribe({
       next: (res) => {
@@ -106,6 +109,6 @@ export class UsersManagementComponent implements OnInit {
   }
 
   public get f(): { [key: string]: AbstractControl } {
-    return this.adminModeratorForm.controls;
+    return this.userManagementForm.controls;
   }
 }

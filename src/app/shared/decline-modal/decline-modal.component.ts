@@ -15,17 +15,18 @@ export class DeclineModalComponent implements OnInit {
   });
   constructor(
       public readonly dialogRef: MatDialogRef<DeclineModalComponent>,
-      @Inject(MAT_DIALOG_DATA) public _dataId,
+      @Inject(MAT_DIALOG_DATA) public data,
       private toastrMessageService: ToastrMessageService,
       public decline: ApproveService
   ) { }
 
   ngOnInit(): void {
+    this.declineForm.controls['decline_text'].setValue(this.data.text);
   }
 
   public declineCourse(){
     const text = this.declineForm.controls['decline_text'].value
-    this.decline.approveCourse(this._dataId,4, text).subscribe(res=>{
+    this.decline.approveCourse(this.data.id,4, text).subscribe(res=>{
       if(res.success){
         this.closeDialog()
         this.toastrMessageService.showSuccess(res.message, 'Done !');

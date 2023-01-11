@@ -1,12 +1,18 @@
+<h3 mat-dialog-title>Are you sure want to decline?</h3>
 <div class="content">
     <i class="material-icons row_action left-0" (click)="closeDialog()">close</i>
     <form class="example-form" [formGroup]="declineForm">
-        <mat-form-field class="example-full-width">
-            <mat-label>Decline Reason</mat-label>
-            <textarea  formControlName="decline_text" matInput placeholder="Reason"></textarea>
-
-        </mat-form-field>
-        <button mat-raised-button (click)="declineCourse()" class="btn btn-primary btn-sm">Decline</button>
-
+        <article>
+            <ng-container *ngIf="data.text; else emptyText">
+                <h5 class="text-black">Reason:</h5>{{data.text}}
+            </ng-container>
+        </article>
+        <div class="action-keeper d-flex justify-content-end gap-2 mt-3">
+            <button mat-button (click)="closeDialog()" class="btn btn-outline-primary btn-md">Cancel</button>
+            <button mat-raised-button [disabled]="!data.text" (click)="declineCourse()" class="btn btn-primary btn-md">Decline</button>
+        </div>
     </form>
 </div>
+<ng-template #emptyText>
+    You didn't specified any reason for decline.
+</ng-template>

@@ -29,8 +29,6 @@ export class VectorMapsComponent implements OnInit {
           region +
           '" which has the code: ' +
           code.toUpperCase();
-
-        console.log(message);
       },
     });
   }

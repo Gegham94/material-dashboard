@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
+import { LangInterface } from 'src/app/core/interfaces/lang.interface';
 
 declare var $: any;
 
@@ -12,20 +14,24 @@ declare var $: any;
 export class LanguageComponent implements OnInit {
 
   @Input() isDark : boolean = false;
+
+  public languages = [
+    { value: 'en', viewValue: 'ENG', src: 'EN' },
+    { value: 'hy', viewValue: 'ARM', src: 'AM' },
+  ];
+
   private readonly destroyed$: Subject<void> = new Subject<void>();
-  public selectedLanguage: string = '';
+
+  public selectedLang: string = '';
+
+  public selectedLanguage: LangInterface | undefined;
 
   constructor(private readonly translateService: TranslateService) {}
 
   public ngOnInit(): void {
-    this.selectedLanguage = this.translateService.getDefaultLang();
-    if(this.isDark){
-      $('select').css('color','#5c5c5b');
-      $('option').css('background','#808080');
-    }
-    this.translateService.onLangChange.pipe(takeUntil(this.destroyed$)).subscribe((event) => {
-      this.selectedLanguage = event.lang;
-    });
+    const lang = localStorage.getItem('lang');
+    const language = this.languages.find((languageRes) => languageRes.value === lang);
+    if (language) this.selectedLang = language.value;
   }
 
   public ngDestroy(): void {
@@ -33,10 +39,9 @@ export class LanguageComponent implements OnInit {
     this.destroyed$.complete();
   }
 
-  public changeLanguage(event: Event) {
-    const newLang = (event.target as HTMLSelectElement).value;
-
-    this.translateService.use(newLang);
+  public changeLanguage(event: MatSelectChange) {
+    localStorage.setItem('lang', event.value);
+    this.translateService.use(event.value);
+    location.reload();
   }
-
 }

@@ -1,11 +1,16 @@
+import { CourseTableData } from '../../core/interfaces/table-data.interface';
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslatedTitleService } from "../../shared/services/translated-title.service";
 import { Filter } from '../../core/interfaces/filter.interface';
-import { PublicCourse } from "../../core/interfaces/public-course.interface";
+import { CourseStatus } from '../../core/enums/course-status.enum';
+import { CourseType } from '../../core/enums/course-type.enum';
+import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';
 import { CoursesService } from "../../core/services/courses.service";
+import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: "app-courses",
@@ -13,8 +18,21 @@ import { CoursesService } from "../../core/services/courses.service";
   styleUrls: ["./courses.component.css"],
 })
 export class CoursesComponent implements OnInit {
+
   private readonly title: string = 'dashboard.courses';
-  public coursesData: PublicCourse[];
+
+  public online: string = '';
+  public offline: string = '';
+  public onlineWebinar: string = '';
+  public consultation: string = '';
+
+  public draft: string = '';
+  public underReview: string = '';
+  public approved: string = '';
+  public declined: string = '';
+  public deleted: string = '';
+
+  public coursesData: CourseTableData;
   public totalPages: number = 0;
   public pageSize: number = 0;
   public currentPage: number = 1;
@@ -22,23 +40,23 @@ export class CoursesComponent implements OnInit {
   public errorMessage: string;
 
   //FILTER BY TYPE Properties
-  public _types: Filter[] = [
-    { key: 'type', label: 'Draft', value: '1' },
-    { key: 'type', label: 'Under Review', value: '2' },
-    { key: 'type', label: 'Approved', value: '3' },
-    { key: 'type', label: 'Decliden', value: '4' },
-    { key: 'type', label: 'Deleted', value: '5' },
-  ];
-  public selectedTypes: Filter[] = [];
-
-  //FILTER BY STATUSES Properties
   public _statuses: Filter[] = [
-    { key: 'status', label: 'Online', value: '1' },
-    { key: 'status', label: 'Offline', value: '2' },
-    { key: 'status', label: 'Online Webinar', value: '3' },
-    { key: 'status', label: 'Consultation', value: '4' },
+    { key: 'status', label: 'Draft', value: '1' },
+    { key: 'status', label: 'Under Review', value: '2' },
+    { key: 'status', label: 'Approved', value: '3' },
+    { key: 'status', label: 'Decliden', value: '4' },
+    { key: 'status', label: 'Deleted', value: '5' },
   ];
   public selectedStatuses: Filter[] = [];
+
+  //FILTER BY STATUSES Properties
+  public _types: Filter[] = [
+    { key: 'type', label: 'Online', value: '1' },
+    { key: 'type', label: 'Offline', value: '2' },
+    { key: 'type', label: 'Online Webinar', value: '3' },
+    { key: 'type', label: 'Consultation', value: '4' },
+  ];
+  public selectedTypes: Filter[] = [];
 
   public searchText: string = '';
 
@@ -51,30 +69,32 @@ export class CoursesComponent implements OnInit {
     private coursesService: CoursesService,
     private readonly activatedRoute: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog,
+    private translateService: TranslateService,
   ) {
     this.translatedTitleService.setTranslatedTitle(this.title);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
-        params['search_text'] ? this.searchText = (params['search_text']).trim() : '';
-      if (params['type']) {
-        let idArr = params['type'].split(',');
-        idArr.forEach((el: string) => {
-          if (el === '1') this.selectedTypes.push({key: 'type', label: 'Draft', value: '1'});
-          if (el === '2') this.selectedTypes.push({key: 'type', label: 'Under Review', value: '2'});
-          if (el === '3') this.selectedTypes.push({key: 'type', label: 'Approved', value: '3'});
-          if (el === '4') this.selectedTypes.push({key: 'type', label: 'Decliden', value: '4'});
-          if (el === '5') this.selectedTypes.push({key: 'type', label: 'Deleted', value: '5'});
-        });
-      }
+      params['search_text'] ? this.searchText = (params['search_text']).trim() : '';
       if (params['status']) {
         let idArr = params['status'].split(',');
         idArr.forEach((el: string) => {
-          if (el === '1') this.selectedStatuses.push({key: 'status', label: 'Online', value: '1'});
-          if (el === '2') this.selectedStatuses.push({key: 'status', label: 'Offline', value: '2'});
-          if (el === '3') this.selectedStatuses.push({key: 'status', label: 'Online Webinar', value: '3'});
-          if (el === '4') this.selectedStatuses.push({key: 'status', label: 'Consultation', value: '4'});
+          if (el === '1') this.selectedStatuses.push({key: 'status', label: 'Draft', value: '1'});
+          if (el === '2') this.selectedStatuses.push({key: 'status', label: 'Under Review', value: '2'});
+          if (el === '3') this.selectedStatuses.push({key: 'status', label: 'Approved', value: '3'});
+          if (el === '4') this.selectedStatuses.push({key: 'status', label: 'Decliden', value: '4'});
+          if (el === '5') this.selectedStatuses.push({key: 'status', label: 'Deleted', value: '5'});
+        });
+      }
+      if (params['type']) {
+        let idArr = params['type'].split(',');
+        idArr.forEach((el: string) => {
+          if (el === '1') this.selectedTypes.push({key: 'type', label: 'Online', value: '1'});
+          if (el === '2') this.selectedTypes.push({key: 'type', label: 'Offline', value: '2'});
+          if (el === '3') this.selectedTypes.push({key: 'type', label: 'Online Webinar', value: '3'});
+          if (el === '4') this.selectedTypes.push({key: 'type', label: 'Consultation', value: '4'});
         });
       }
     });
@@ -101,7 +121,7 @@ export class CoursesComponent implements OnInit {
     this.joinDatas(true);
   }
 
-  public detectSearchSubmit(selectedTypes: Filter[], selectedStatuses: Filter[]) {
+  public detectSearchSubmit(selectedStatuses: Filter[], selectedTypes: Filter[]) {
     this.currentPage = 1;
     this.pageSize = 0;
     this.totalPages = 0;
@@ -154,17 +174,63 @@ export class CoursesComponent implements OnInit {
 
   public fetchData() {
     if (this.coursesData) {
-      this.coursesData = [];
+      this.coursesData = {
+        dataRows: [{id: 0, title: '', price: 0, type: 0, status: 0, currency: ''}]
+      };
     }
     this.isLoading = true;
     this.coursesService.getCourses(this.joinedItemsArray, this.currentPage)
       .subscribe({
         next: (res) => {
           if (res.success === true) {
-            this.coursesData = res.data.data;
-            this.currentPage = res.data.current_page!;
-            this.pageSize = res.data.per_page!;
-            this.totalPages = res.data.total!;
+            this.coursesData = {
+              dataRows: [{id: 0, title: '', price: 0, type: 0, status: 0, currency: ''}]
+           };
+          res.data.data.forEach((value) => {
+            this.coursesData.dataRows.push({
+              id: value.id,
+              title: value.title,
+              price: value.price,
+              type: value.type,
+              status: value.status,
+              currency: value.currency,
+            });
+            switch (value.type) {
+              case CourseType.ONLINE:
+                this.online = this.translateService.instant('course.type.online');
+                break;
+              case CourseType.OFFLINE:
+                this.offline = this.translateService.instant('course.type.offline');
+                break;
+              case CourseType.ONLINE_WEBINAR:
+                this.onlineWebinar = this.translateService.instant('course.type.online_webinar');
+                break;
+              case CourseType.CONSULTATION:
+                this.consultation = this.translateService.instant('course.type.consultation');
+                break;
+            }
+            switch (value.status) {
+              case CourseStatus.DRAFT:
+                this.draft = this.translateService.instant('course.status.draft');
+                break;
+              case CourseStatus.UNDER_REVIEW:
+                this.underReview = this.translateService.instant('course.status.under_review');
+                break;
+              case CourseStatus.APPROVED:
+                this.approved = this.translateService.instant('course.status.approved');
+                break;
+              case CourseStatus.DECLINED:
+                this.declined = this.translateService.instant('course.status.declined');
+                break;
+                case CourseStatus.DELETED:
+              this.deleted = this.translateService.instant('course.status.deleted');
+                break;
+            }
+          });
+          this.coursesData.dataRows.shift();
+          this.currentPage = res.data.current_page!;
+          this.pageSize = res.data.per_page!;
+          this.totalPages = res.data.total!;
           }
           this.isLoading = false;
         },
@@ -177,12 +243,34 @@ export class CoursesComponent implements OnInit {
       });
   }
 
+  public get courseTypes(): typeof CourseType {
+    return CourseType;
+  }
+
+  public get courseStatus(): typeof CourseStatus {
+    return CourseStatus;
+  }
+
+  public openDeleteDialog(item_id: number, item_title: string, event: Event) {
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {delete_item: this.translateService.instant('course.course'), item_id, item_title},
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.fetchData();
+      }
+    });
+  }
+
+  public goCourseVerification(course) {
+    this.router.navigate(['/system/courses/', course.id])
+  }
+
   public addCurrentPageParam(params?: {}) {
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
-      queryParams: {
-        ...params
-      },
+      queryParams: { ...params },
       queryParamsHandling: 'merge',
     });
   }

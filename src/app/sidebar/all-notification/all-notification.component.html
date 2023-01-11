@@ -1,0 +1,65 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card_title_part">
+                            <div class="card-icon">
+                                <i class="material-icons">notifications</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" [class.m-auto]="allNotificationList?.length === 0">
+                            <div class="tab-content-header" *ngIf="!loader">
+                                <p class="unread_count">{{ 'global.header.header-notification.unread' | translate }}
+                                    <span>{{ unreadCount }}</span>
+                                </p>
+                                <p class="mark-read"
+                                   (click)="markAllRead($event)">{{ 'global.header.header-notification.mark-all' | translate }}</p>
+                            </div>
+
+                            <div class="notification_list">
+                                <ng-container *ngIf="allNotificationList?.length > 0; else loaderBlock">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr *ngFor="let notification of allNotificationList"
+                                            (click)="readNotification(notification?.id, notification?.status)"
+                                            [class.unread_notification]="!notification?.status">
+                                            <td></td>
+                                            <td [class.unread]="!notification?.status">
+                                                <h5 class="notification_title">{{ notification?.title }}</h5>
+                                                <span class="notification_message">{{ notification?.message }}</span>
+                                                <span class="notification_date">{{ notification?.created_at | date }}</span>
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <button  *ngIf="!notification?.status" mat-raised-button type="button"
+                                                         class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">brightness_1</i>
+                                                </button>
+
+                                                <button mat-raised-button type="button"
+                                                        (click)="deleteItem(notification?.id)"
+                                                        class="btn btn-danger btn-link btn-sm">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+
+                                <ng-template #loaderBlock>
+                                    <div class="notification_loader">
+                                        <mat-spinner></mat-spinner>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

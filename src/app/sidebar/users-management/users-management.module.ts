@@ -10,12 +10,12 @@ import { ButtonModule } from "primeng/button";
 import { RadioButtonModule } from "primeng/radiobutton";
 
 import { UsersManagementComponent } from "./users-management.component";
-import { AdminModeratorRoutes } from "./users-management.routing";
+import { UserRoutes } from "./users-management.routing";
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminModeratorRoutes),
+    RouterModule.forChild(UserRoutes),
     FormsModule,
     MaterialModule,
     TranslateModule,

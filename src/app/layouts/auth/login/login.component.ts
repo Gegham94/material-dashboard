@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { TranslatedTitleService } from '../../../shared/services/translated-title.service';
-import { User } from '../../../core/interfaces/login.interface';
+import { PublicUser } from './../../../core/interfaces/public-user.interface';
 import { ResponseDTO } from '../../../core/interfaces/responseData.interface';
 import { ToastrMessageService } from '../../../core/services/toastr.service';
 
@@ -36,7 +36,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 		this.sidebarVisible = false;
 		this.translatedTitleService.setTranslatedTitle(this.title);
 		this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
     });
 	}
@@ -77,7 +77,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 		let lang = localStorage.getItem("lang");
 		values.language_code = lang;
     this.authService.login(values).subscribe(
-      (response: ResponseDTO<User>) => {
+      (response: ResponseDTO<PublicUser>) => {
         if (response.success === true) {
           // user successfully logged in
           this.router.navigate(['system/dashboard']);

@@ -2,3 +2,15 @@
   margin-top: 10px;
   background-color: transparent;
 }
+::ng-deep .mat-paginator-page-size-label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+::ng-deep .mat-paginator-page-size-value {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+::ng-deep .mat-paginator-range-label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

@@ -1,0 +1,9 @@
+.fixed-plugin{
+  height: 40px;
+}
+.dropdown{
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 12px;
+}

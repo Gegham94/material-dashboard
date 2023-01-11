@@ -14,7 +14,7 @@
                 <p-multiSelect
                   [options]="_roles"
                   [(ngModel)]="selectedRoles"
-                  defaultLabel="Filter by role"
+                  defaultLabel="{{'user.filter_by_role' | translate}}"
                   optionLabel="label"
                   display="chip"
                   (onChange)="detectRoleChange(selectedRoles)"
@@ -24,22 +24,81 @@
                 <input
                   type="text"
                   pInputText
-                  placeholder="Search User"
+                  placeholder="{{'user.search_user' | translate}}"
                   [(ngModel)]="searchText"
                   (keypress)="$event.keyCode == 13 ? detectSearchSubmit(selectedRoles) : ''"
                 />
               </span>
             </div>
-              <button mat-raised-button class="btn btn-success create-new">Create New</button>
+              <button mat-raised-button class="btn btn-success create-new" (click)="addUser()">{{'user.add_user' | translate}}</button>
             </div>
           </div>
           <div class="card-body">
-            <div class="courses-table" *ngIf="!isLoading; else spinerModel">
-              <ng-container *ngIf="usersData && usersData.length > 0; else noDataModel">
-                <ng-container *ngFor="let userData of usersData">
-                  <app-user [userData]="userData"></app-user>
-                </ng-container>
-              </ng-container>
+            <div class="table-responsive" *ngIf="!isLoading; else spinerModel">
+              <table class="table table-hover" *ngIf="usersData && usersData.dataRows.length > 0; else noDataModel">
+                <thead>
+                  <tr>
+                    <th class="header_th">{{'user.table.image' | translate}}</th>
+                    <th class="header_th">{{'user.table.first_name' | translate}}</th>
+                    <th class="header_th">{{'user.table.last_name' | translate}}</th>
+                    <th class="header_th">{{'user.table.email' | translate}}</th>
+                    <th class="header_th">{{'user.table.role' | translate}}</th>
+                    <th class="header_th"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of usersData.dataRows">
+                    <td>
+                      <img class="image" alt="Course Example" src="{{
+                        row.avatar
+                          ? row.avatar
+                          : 'assets/img/profile_dark.svg'
+                        }}"
+                      />
+                    </td>
+                    <td>{{row.first_name}}</td>
+                    <td>{{row.last_name}}</td>
+                    <td>{{row.email}}</td>
+                    <td *ngIf="row.role_id" >
+                      <span class="role_style" *ngIf="row.role_id === usersRoles.ADMINISTRATOR"
+                        [style]="{ 'background-color': '#C585FF' }"
+                      >
+                        {{administrator}}
+                      </span>
+                      <span class="role_style" *ngIf="row.role_id === usersRoles.MODERATOR"
+                        [style]="{ 'background-color': '#9785ff' }"
+                      >
+                        {{moderator}}
+                      </span>
+                      <span class="role_style" *ngIf="row.role_id === usersRoles.TRAINER"
+                        [style]="{ 'background-color': '#85ffda' }"
+                      >
+                        {{trainer}}
+                      </span>
+                      <span class="role_style" *ngIf="row.role_id === usersRoles.TRAINING_CENTER"
+                        [style]="{ 'background-color': '#85ffa0' }"
+                      >
+                        {{trainingCenter}}
+                      </span>
+                      <span class="role_style" *ngIf="row.role_id === usersRoles.STUDENT"
+                        [style]="{ 'background-color': '#f7ff85' }"
+                      >
+                        {{student}}
+                      </span>
+                    </td>
+                    <td class="action_td">
+                      <span class="actions_keeper">
+                        <a
+                        class="btn btn-link btn-danger btn-just-icon deleteBtn"
+                        pTooltip="{{'user.delete_user' | translate}}"
+                        tooltipPosition="left"
+                        (click)="openDeleteDialog(row.id, row.first_name, row.last_name)"
+                      ><i class="material-icons row_action">delete</i></a>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <ng-template #noDataModel>
                 <div class="notData-block">
                   <p class="notData-text">{{errorMessage}}</p>
@@ -56,6 +115,11 @@
       </div>
     </div>
   </div>
-  <app-pagination *ngIf="usersData && usersData.length > 0" [pageIndex]="currentPage - 1" [pageSize]="pageSize"
-    [total]="totalPages" (pageChange)="pageChanged($event)"></app-pagination>
+  <app-pagination
+    *ngIf="usersData && usersData.dataRows.length > 0"
+    [pageIndex]="currentPage - 1"
+    [pageSize]="pageSize"
+    [total]="totalPages"
+    (pageChange)="pageChanged($event)"
+    ></app-pagination>
 </div>
