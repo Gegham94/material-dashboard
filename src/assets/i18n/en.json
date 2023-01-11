@@ -36,6 +36,21 @@
       "name": "Name",
       "surname": "Surname",
       "company": "Company"
+    },
+    "basket":{
+      "course_title": "Course title",
+      "course_creator": "Course creator",
+      "course_count": "Course count",
+      "add_basket": "users added in basket",
+      "list_of_users": "List of users"
+    },
+
+    "wishlist":{
+      "course_title": "Course title",
+      "course_creator": "Course creator",
+      "course_count": "Course count",
+      "add_wishlist": "users added in wishlist",
+      "list_of_users": "List of users"
     }
   },
   "dashboard": {
@@ -46,7 +61,9 @@
     "categories": "Categories",
     "documentation": "Documentation",
     "company-trainers": "Company trainers",
-    "all-notifications": "All Notifications"
+    "all-notifications": "All Notifications",
+    "baskets": "Baskets",
+    "wishlist": "wishlists"
   },
   "auth": {
     "login": {
@@ -138,6 +155,13 @@
     "delete": "Delete",
     "add_category": "Add Category",
     "create_category": "Create Category"
+  },
+  "basket_table": {
+    "title": "Baskets"
+  },
+
+  "wish_list_table": {
+    "title": "Wishlists"
   },
   "category_management": {
     "armenian": "Armenian",

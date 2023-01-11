@@ -1,0 +1,18 @@
+<div class="users-dialog">
+    <span class="list-users">{{'global.basket.list_of_users' | translate}}</span>
+    <span (click)="closeDialog()" class="close">
+        <i class="material-icons">close</i>
+
+    </span>
+    <ul class="users-ul">
+        <li class="list" *ngFor="let arr of dialogData.user_list">
+            <div class="image-side">
+                <img class="image" [src]="arr.avatar" alt=""  onerror="this.onerror=null;this.src='../../../../assets/img/default-avatar.png'">
+            </div>
+            <div class="name-side">
+                <span class="name">{{arr.user_name}}</span>
+            </div>
+        </li>
+    </ul>
+
+</div>

@@ -62,6 +62,14 @@ export const routes: Routes = [
         path: 'categories-management',
         loadChildren: () => import('./sidebar/categories-management/categories-management.module').then((m) => m.CategoriesManagementModule),
       },
+      {
+        path: 'basket',
+        loadChildren: () => import('./sidebar/basket/basket.module').then((m) => m.BasketModule),
+      },
+      {
+        path: 'wishlist',
+        loadChildren: () => import('./sidebar/wishlist/wishlist.module').then((m) => m.WishlistModule),
+      },
       // {
       //   path: 'components',
       //   loadChildren: () => import('./sidebar/components/components.module').then((m) => m.ComponentsModule),

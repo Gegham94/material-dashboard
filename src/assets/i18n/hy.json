@@ -36,6 +36,21 @@
       "name": "Անուն",
       "surname": "Ազգանուն",
       "company": "Կազմակերպության անուն"
+    },
+    "basket":{
+      "course_title": "Դասընթացի վերնագիր",
+      "course_creator": "Դասընթաց ստեղծող",
+      "course_count": "Դասընթացի քանակ",
+      "add_basket": "օգտատեր ավելացրել է զամբյուղում"
+
+    },
+
+    "wishlist":{
+      "course_title": "Դասընթացի վերնագիր",
+      "course_creator": "Դասընթաց ստեղծող",
+      "course_count": "Դասընթացի քանակ",
+      "add_wishlist": "օգտատեր ավելացրել է ցանկությունների ցանկանում"
+
     }
   },
   "dashboard": {
@@ -46,7 +61,9 @@
     "categories": "Կատեգորիաներ",
     "documentation": "Փաստաթղթեր",
     "company-trainers": "Դասընթացավարներ",
-    "all-notifications": "Բոլոր ծանուցումները"
+    "all-notifications": "Բոլոր ծանուցումները",
+    "baskets": "Զամբյուղ",
+    "wishlist": "Ցանկությունների ցանկ"
   },
   "auth": {
     "login": {

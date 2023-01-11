@@ -1,0 +1,49 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card_title_part">
+                <div class="card-icon">
+                  <i class="material-icons">shopping_basket</i>
+                </div>
+                <!-- <h4 class="card-title">{{'basket_table.title' | translate}}</h4> -->
+              </div>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <div class="table" *ngIf="!isLoading; else spinerModel">
+                      <div class="table-header table-row">
+                        <div class="td">{{'global.basket.course_title' | translate}}</div>
+                        <div class="td">{{'global.basket.course_creator' | translate}}</div>
+                        <div class="td action">{{'global.basket.course_count' | translate}}</div>
+                      </div>
+                      <div class="table-content">
+                      <div class="table-row" *ngFor="let row of courses; let rowIndex = index">
+                          <div (click)="expanded[row.id] = !expanded[row.id]" class="td">
+                             {{row.title}}
+                          </div>
+                          <div (click)="expanded[row.id] = !expanded[row.id]" class="td">
+                            {{row.course_creator}}
+                          </div>
+                          <div class="td">
+                            <span (click)="seeUsers(row)" class="see-users">
+                              {{row.user_list.length}} {{'global.basket.add_basket' | translate}}
+                          </span>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    <ng-template #spinerModel>
+                      <div class="loader-block">
+                        <mat-spinner></mat-spinner>
+                      </div>
+                    </ng-template>
+                  </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -126,6 +126,20 @@ export class SidebarService {
     //   type: "link",
     //   icontype: "date_range",
     // },
+    {
+      path: "/system/basket",
+      title: "Baskets",
+      type: "link",
+      icontype: "shopping_basket",
+      translateKey: "dashboard.baskets",
+    },
+    {
+      path: "/system/wishlist",
+      title: "Wishlists",
+      type: "link",
+      icontype: "star_border",
+      translateKey: "dashboard.wishlist",
+    },
   ];
 
   get sidebar(): SidebarElem[] {
