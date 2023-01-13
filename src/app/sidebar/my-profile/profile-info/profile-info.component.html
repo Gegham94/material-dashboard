@@ -1,0 +1,54 @@
+<ng-container *ngIf="!isLoading; else spinerModel">
+  <div class="grid grid_view">
+    <div class="col-12">
+      <div class="grid_row">
+        <div class="col-6 info">
+          <p-image src="{{userData.avatar ? userData.avatar : '/assets/img/default-avatar.png'}}" [preview]="true"></p-image>
+        </div>
+        <div class="col-6 info">
+          <div class="stat">
+            <div class="stat_label">{{'user.table.first_name' | translate}}:</div>
+            <div class="stat_value">
+              {{userData.first_name}}
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat_label">{{'user.table.last_name' | translate}}:</div>
+            <div class="stat_value">
+              {{userData.last_name}}
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat_label">{{'user.table.email' | translate}}:</div>
+            <div class="stat_value">
+              {{userData.email}}
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat_label">{{'user.profile.company' | translate}}:</div>
+            <div class="stat_value" *ngIf="userData.company_name && userData.company_name!==''">
+              {{userData.company_name}}
+            </div>
+            <div class="stat_value" *ngIf="!userData.company_name || userData.company_name===''">
+              - - - - - - - -
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat_label">{{'user.profile.phone' | translate}}:</div>
+            <div class="stat_value" *ngIf="userData.phone && userData.phone!==''">
+              {{userData.phone}}
+            </div>
+            <div class="stat_value" *ngIf="!userData.phone || userData.phone===''">
+              - - - - - - - -
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #spinerModel>
+  <div class="loader-block">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

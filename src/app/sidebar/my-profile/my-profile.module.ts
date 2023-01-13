@@ -7,6 +7,11 @@ import { MyProfileComponent } from "./my-profile.component";
 import { MyProfileRoutes } from "./my-profile.routing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from '@ngx-translate/core';
+import { TabViewModule } from 'primeng/tabview';
+import { ImageModule } from 'primeng/image';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfileInfoComponent } from './profile-info/profile-info.component';
 
 @NgModule({
   imports: [
@@ -15,8 +20,10 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    TabViewModule,
+    ImageModule,
   ],
-  declarations: [MyProfileComponent],
+  declarations: [MyProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileInfoComponent],
 })
 export class MyProfileModule {}

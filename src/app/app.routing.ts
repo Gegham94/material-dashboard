@@ -27,10 +27,6 @@ export const routes: Routes = [
         loadChildren: () => import('./sidebar/my-profile/my-profile.module').then((m) => m.MyProfileModule),
       },
       {
-        path: 'change-password',
-        loadChildren: () => import('./sidebar/change-password/change-password.module').then((m) => m.ChangePasswordModule),
-      },
-      {
         path: 'users',
         loadChildren: () => import('./sidebar/users/users.module').then((m) => m.UsersModule),
       },

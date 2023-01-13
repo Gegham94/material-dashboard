@@ -10,5 +10,6 @@ export interface PublicUser {
   role_id: UserType;
   avatar: string;
   slug: string;
+  phone: string;
   api_token: string;
 }

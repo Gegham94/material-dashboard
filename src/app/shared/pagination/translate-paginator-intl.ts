@@ -20,10 +20,10 @@ const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
       ? Math.min(startIndex + pageSize, length)
       : startIndex + pageSize;
   if (lang === "en") {
-    return `${startIndex + 1} - ${endIndex} of ${length}`;
+    return `${startIndex + 1}-${endIndex} of ${length}`;
   }
   if (lang === "hy") {
-    return `${startIndex + 1} - ${endIndex} -ից ${length}`;
+    return `${startIndex + 1}-${endIndex} ${length}-ից`;
   }
 };
 

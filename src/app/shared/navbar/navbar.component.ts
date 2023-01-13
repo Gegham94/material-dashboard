@@ -213,7 +213,7 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[i].translateKey;
       }
       if (titlee.includes('my-profile')){
-        return this.translateService.instant('dashboard.my_profile');
+        return this.translateService.instant('dashboard.profile_settings');
       }
       // else if (this.listTitles[i].type === "sub") {
       //   for (let j = 0; j < this.listTitles[i].children.length; j++) {

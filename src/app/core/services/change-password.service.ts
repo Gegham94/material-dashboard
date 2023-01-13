@@ -1,3 +1,4 @@
+import { CheckPasswordInterface } from './../interfaces/check-password.interface';
 import { ChangePasswordInterface } from './../interfaces/change-password.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -14,6 +15,10 @@ const headers = new HttpHeaders({ "Content-Type": "application/json" });
 export class ChangePasswordService {
 
   constructor(private http: HttpClient) {}
+
+  public checkCurrentPassword(password: string) {
+    return this.http.post<CheckPasswordInterface>(`${API_URL}/check-password`, { password });
+  }
 
   public changePassword(data: ChangePasswordInterface) {
     return this.http

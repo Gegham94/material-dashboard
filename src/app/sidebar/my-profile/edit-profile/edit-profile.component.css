@@ -1,0 +1,80 @@
+.loader-block {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+::ng-deep.mat-progress-spinner {
+  width: 50px !important;
+  height: 90px !important;
+}
+::ng-deep.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: blueviolet;
+}
+::ng-deep.mat-progress-spinner svg {
+  width: 50px !important;
+}
+.profile_form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 50px 0;
+}
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0 0 10px;
+}
+.upload_img_icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+.avatar-upload {
+  position: relative;
+  margin: 25px 0;
+}
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+.avatar-upload .avatar-preview {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 5%;
+  overflow: hidden;
+  border: 1px dashed rgb(194, 194, 194);
+  padding: 5px;
+}
+.avatar-upload .avatar-preview > div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 3px;
+}
+mat-label {
+  margin-top: 5px;
+}
+.mat-input-element {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(179, 179, 179, 0.822);
+  border-radius: 3px;
+}
+.save-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 16px;
+}
+.save {
+  font-size: 15px;
+}
