@@ -137,7 +137,7 @@
 }
 ::ng-deep.mat-progress-spinner {
   width: 50px !important;
-  height: 90px !important;
+  height: 50px !important;
 }
 ::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
   stroke: blueviolet;
