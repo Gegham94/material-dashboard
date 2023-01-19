@@ -34,10 +34,20 @@
                   <div (click)="expanded[row.id] = !expanded[row.id]" class="td">{{row.title_am}}</div>
                   <div (click)="expanded[row.id] = !expanded[row.id]" class="td">{{row.ordering}}</div>
                   <div class="td child-action">
-                    <img (click)="editCategory(row)" src="../../../assets/img/edit.svg" alt="">
+                    <a
+                      class="btn btn-link btn-warning btn-just-icon editBtn"
+                      pTooltip="{{'category.edit_category' | translate}}"
+                      tooltipPosition="left"
+                      (click)="editCategory(row)"
+                    ><i class="material-icons">edit</i></a>
                   </div>
                   <div  class="td child-action">
-                    <img (click)="deleteCategory(row, false)" src="../../../assets/img/delete.svg" alt="">
+                    <a
+                      class="btn btn-link btn-danger btn-just-icon deleteBtn"
+                      pTooltip="{{'category.delete_category' | translate}}"
+                      tooltipPosition="left"
+                      (click)="deleteCategory(row, false)"
+                    ><i class="material-icons">delete</i></a>
                   </div>
                   <div [@detailExpand]="expanded[row.id] ? 'expanded' : 'collapsed'">
                     <div  class="child-row" *ngFor="let childrow of row.children">
@@ -46,10 +56,20 @@
                       <div class="td child">{{childrow.title_am}}</div>
                       <div class="td child">{{childrow.ordering}}</div>
                       <div  class="td child child-action">
-                        <img (click)="editCategory(childrow)" src="../../../assets/img/edit.svg" alt="">
+                        <a
+                          class="btn btn-link btn-warning btn-just-icon editBtn"
+                          pTooltip="{{'category.edit_category' | translate}}"
+                          tooltipPosition="left"
+                          (click)="editCategory(childrow)"
+                        ><i class="material-icons">edit</i></a>
                       </div>
                       <div  class="td child child-action">
-                        <img (click)="deleteCategory(childrow, true)" src="../../../assets/img/delete.svg" alt="">
+                          <a
+                          class="btn btn-link btn-danger btn-just-icon deleteBtn"
+                          pTooltip="{{'category.delete_category' | translate}}"
+                          tooltipPosition="left"
+                          (click)="deleteCategory(childrow, true)"
+                        ><i class="material-icons">delete</i></a>
                       </div>
                     </div>
                 </div>

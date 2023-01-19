@@ -3,7 +3,7 @@ import { HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TranslatedTitleService } from "../../shared/services/translated-title.service";
+import { TranslatedTitleService } from "../../shared/shared-services/translated-title.service";
 import { Filter } from '../../core/interfaces/filter.interface';
 import { CourseStatus } from '../../core/enums/course-status.enum';
 import { CourseType } from '../../core/enums/course-type.enum';

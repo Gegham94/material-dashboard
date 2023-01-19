@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { TranslatedTitleService } from '../../../shared/services/translated-title.service';
+import { TranslatedTitleService } from '../../../shared/shared-services/translated-title.service';
 import { PublicUser } from './../../../core/interfaces/public-user.interface';
 import { ResponseDTO } from '../../../core/interfaces/responseData.interface';
 import { ToastrMessageService } from '../../../core/services/toastr.service';

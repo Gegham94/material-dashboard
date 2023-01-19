@@ -12,6 +12,8 @@ import { ImageModule } from 'primeng/image';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { TooltipModule } from "primeng/tooltip";
+import { UploadImageDirective } from './edit-profile/upload-image.directive';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
     TranslateModule,
     TabViewModule,
     ImageModule,
+    TooltipModule,
   ],
-  declarations: [MyProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileInfoComponent],
+  declarations: [MyProfileComponent, EditProfileComponent, ChangePasswordComponent, ProfileInfoComponent, UploadImageDirective],
 })
 export class MyProfileModule {}

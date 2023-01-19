@@ -1,14 +1,16 @@
 .loader-block {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
 }
 ::ng-deep.mat-progress-spinner {
   width: 50px !important;
   height: 90px !important;
 }
-::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+::ng-deep.mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: blueviolet;
 }
 ::ng-deep.mat-progress-spinner svg {
@@ -67,7 +69,7 @@ h1, p, .td {
 }
 .td {
   display: inline-block;
-  padding: 8px;
+  /* padding: 8px; */
   white-space: pre-wrap;
 }
 .td:nth-child(0) {
@@ -89,13 +91,16 @@ h1, p, .td {
   cursor: pointer;
 }
 .clickable:hover {
-  background-color: #cecece8c;
+  background-color: #e2e2e28c;
 }
 .child-row {
-  background-color: #cecece49;
+  background-color: #cecece59;
 }
-.child {
-  /* margin-left: 5px; */
+.deleteBtn:hover {
+  background-color: rgba(143, 143, 143, 0.479) !important;
+}
+.editBtn:hover {
+  background-color: rgba(143, 143, 143, 0.479) !important;
 }
 .action,.child-action{
   width: 5vw;

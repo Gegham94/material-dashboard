@@ -33,11 +33,6 @@ export class CategoriesService {
     return this.http.post<ResponseDTO<any>>(`${this.API_URL}/categories/create`, body);
   }
 
-  // POST
-  updateCategory(body: any){
-    return this.http.post(`${this.API_URL}/categories/update`, body);
-  }
-
   // DELETE
   deleteCategoryById(id: number): Observable<any>{
     return this.http.delete<any>(`${this.API_URL}/categories/delete/${id}`,{});

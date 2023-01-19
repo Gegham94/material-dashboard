@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {DeclineModalComponent} from "../decline-modal/decline-modal.component";
-import {ApproveService} from "../services/approve/approve.service";
+import {ApproveService} from "../../core/services/approve.service";
 import {ToastrMessageService} from "../../core/services/toastr.service";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {SweetAlertOptions} from "sweetalert2";

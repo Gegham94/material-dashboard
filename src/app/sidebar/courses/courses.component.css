@@ -1,14 +1,16 @@
 .loader-block {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
 }
 ::ng-deep.mat-progress-spinner {
   width: 50px !important;
   height: 90px !important;
 }
-::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+::ng-deep.mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: blueviolet;
 }
 ::ng-deep.mat-progress-spinner svg {
@@ -121,7 +123,7 @@ td {
 }
 .deleteBtn:hover {
   background-color: rgba(143, 143, 143, 0.479) !important;
-  font-size: 12px;
+  font-size: 10px;
 }
 .card-body::-webkit-scrollbar {
   width: 5px;

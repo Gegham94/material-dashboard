@@ -137,7 +137,7 @@ export class SidebarService {
       path: "/system/wishlist",
       title: "Wishlists",
       type: "link",
-      icontype: "star_border",
+      icontype: "favorite",
       translateKey: "dashboard.wishlist",
     },
   ];

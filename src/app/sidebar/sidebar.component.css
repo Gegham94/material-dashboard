@@ -1,6 +1,6 @@
 .sidebar-wrapper{
-  height: 100%;
-  overflow-y: scroll;
+  /* height: 100%; */
+  overflow-y: auto;
 }
 /* width */
 .sidebar-wrapper::-webkit-scrollbar {
@@ -20,6 +20,9 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
+.logo-normal:hover{
+  opacity: 0.6 !important;
 }
 .toggle_sections, #collapseExample {
   cursor: pointer;

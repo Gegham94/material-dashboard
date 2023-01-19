@@ -1,6 +1,6 @@
 .main-panel{
-  height: 100vh;
-  overflow-y: scroll;
+  height: 102%;
+  overflow-y: auto;
 }
 /* width */
 .main-panel::-webkit-scrollbar {

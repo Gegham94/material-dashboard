@@ -8,11 +8,12 @@ import {
 } from "@angular/animations";
 import { CategoriesService } from "../../core/services/categories.service";
 import { Categories } from "../../core/interfaces/categories.interface";
-import { TranslatedTitleService } from "../../shared/services/translated-title.service";
+import { TranslatedTitleService } from "../../shared/shared-services/translated-title.service";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
-import { ConfirmDialogComponent } from "../../shared/confirm-dialog/confirm-dialog.component";
-import { ToastrService } from "ngx-toastr";
+import { ToastrMessageService } from '../../core/services/toastr.service';
+import { DeleteDialogComponent } from "src/app/shared/delete-dialog/delete-dialog.component";
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-categories",
   templateUrl: "./categories.component.html",
@@ -39,7 +40,8 @@ export class CategoriesComponent implements OnInit {
     private categoriesService: CategoriesService,
     private router: Router,
     private dialog: MatDialog,
-    private toastrModule: ToastrService
+    private toastrMessageService: ToastrMessageService,
+    private translateService: TranslateService,
   ) {
     this.translatedTitleService.setTranslatedTitle(this.title);
   }
@@ -84,12 +86,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   public deleteCategory(event: any, isChild: boolean) {
-    const confirm = this.dialog.open(ConfirmDialogComponent, {
-      width: "500px",
-      height: "200px",
-      panelClass: "confirm-dialog",
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {delete_item: this.translateService.instant('category.category'), item_id: event.id, item_title: event.title},
     });
-    confirm.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.isLoading = true;
         this.deleteCategoryFetch(event.id, isChild);
@@ -107,7 +107,7 @@ export class CategoriesComponent implements OnInit {
               elem.children.forEach((element, i) => {
                 if (element.id === id) {
                   elem.children.splice(i, 1);
-                  this.toastrModule.success(res.message);
+                  this.toastrMessageService.showSuccess(res.message, "Done !");
                 }
               });
             });
@@ -116,13 +116,13 @@ export class CategoriesComponent implements OnInit {
             this.categoriesData.forEach((elem, i) => {
               if (elem.id === id) {
                 this.categoriesData.splice(i, 1);
-                this.toastrModule.success(res.message);
+                this.toastrMessageService.showSuccess(res.message, "Done !");
               }
             });
           }
         }
       },
-      (error) => this.toastrModule.error(error.message)
+      (error) => this.toastrMessageService.showError(error.message, "Failed !")
     );
   }
 }

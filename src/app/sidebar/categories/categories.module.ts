@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { CategoriesComponent } from "./categories.component";
 import { CategoriesRoutes } from "./categories.routing";
+import { TooltipModule } from "primeng/tooltip";
 
 @NgModule({
   declarations: [CategoriesComponent],
@@ -15,7 +16,8 @@ import { CategoriesRoutes } from "./categories.routing";
     RouterModule.forChild(CategoriesRoutes),
     FormsModule,
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    TooltipModule,
   ],
 })
 export class CategoriesModule {}

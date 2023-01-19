@@ -6,7 +6,7 @@ import { UserType } from '../../core/enums/user-type.enum';
 import { UsersService } from 'src/app/core/services/users.service';
 import { HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslatedTitleService } from '../../shared/services/translated-title.service';
+import { TranslatedTitleService } from '../../shared/shared-services/translated-title.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DeleteDialogComponent } from '../../shared/delete-dialog/delete-dialog.component';

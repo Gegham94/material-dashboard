@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,13 +20,14 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() public userData: PublicUser;
 
   @ViewChild('fileInput') el: ElementRef;
-  imageUrl: any = "";
+  imageUrl: string = "";
 
   constructor(
     private readonly profileService: ProfileService,
     private toastrMessageService: ToastrMessageService,
     private router: Router,
     private translateService: TranslateService,
+    private cd: ChangeDetectorRef,
   ) { }
 
   public ngOnInit(): void {
@@ -35,19 +36,21 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       avatar: new FormControl(this.userData.avatar),
       first_name: new FormControl(this.userData.first_name, [
         Validators.required,
-        Validators.pattern(
-          "^(?=.{3,22}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-        ),
+        Validators.pattern("^(?=.{3,22}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"),
       ]),
       last_name: new FormControl(this.userData.last_name, [
         Validators.required,
-        Validators.pattern(
-          "^(?=.{3,22}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-        ),
+        Validators.pattern("^(?=.{3,22}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"),
       ]),
       email: new FormControl(this.userData.email, [
         Validators.required,
         Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$"),
+      ]),
+      company_name: new FormControl(this.userData.company_name, [
+        Validators.pattern("^(?=.{3,22}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"),
+      ]),
+      phone: new FormControl(this.userData.phone, [
+        Validators.pattern("^\\+?[1-9][0-9]{7,14}$"),
       ]),
     });
   }
@@ -56,18 +59,26 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userData ? this.isLoading = false : this.isLoading = true;
   }
 
-  public uploadFile(event) {
+  public uploadImage(event) {
     let reader = new FileReader();
     let file = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.imageUrl = reader.result;
+        this.imageUrl = reader.result as string;
         this.profileForm.patchValue({
           avatar: reader.result
         });
       }
     }
+    this.cd.markForCheck(); 
+  }
+
+  public removeImage() {
+    this.imageUrl = '';
+    this.profileForm.patchValue({
+      avatar: this.userData.avatar,
+    })
   }
 
   public submitEditProfileForm() {
@@ -111,5 +122,4 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }

@@ -53,7 +53,7 @@ import { AdminLayoutComponent } from "./layouts/admin/admin-layout.component";
 
 import { AppRoutingModule } from "./app.routing";
 import { AuthGuard } from "./core/guards";
-import { TranslatedTitleService } from "./shared/services/translated-title.service";
+import { TranslatedTitleService } from "./shared/shared-services/translated-title.service";
 import { DeleteDialogModule } from "./shared/delete-dialog/delete-dialog.module";
 import { DeclineModalModule } from "./shared/decline-modal/decline-modal.module";
 import { VerificationModule } from "./shared/verification/verification.module";

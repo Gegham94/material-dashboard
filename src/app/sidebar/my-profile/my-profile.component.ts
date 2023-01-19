@@ -1,8 +1,8 @@
 import { Subject, takeUntil } from "rxjs";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { PublicUser } from "../../core/interfaces/public-user.interface";
 import { GlobalService } from "../../core/services/global.service";
-import { TranslatedTitleService } from "../../shared/services/translated-title.service";
+import { TranslatedTitleService } from "../../shared/shared-services/translated-title.service";
 
 @Component({
   selector: "app-my-profile",

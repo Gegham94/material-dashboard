@@ -120,6 +120,7 @@
       "phone": "Հեռ. համար",
       "role": "Դեր",
       "profile_info": "Անձնական տվյալներ",
+      "image_upload": "Վերբեռնիր էջի նկարը",
       "edit_profile": "Փոփոխել տվյալները",
       "change_password": "Փոխել գաղտնաբառը",
       "current_password": "Ընթացիք գաղտնաբառ",
@@ -163,14 +164,19 @@
     "add_user": "Ավելացնել Օգտատեր",
     "delete_user": "Հեռացնել Օգտատիրոջը"
   },
+  "category": {
+    "category": "ԿԱՏԵԳՈՐԻԱՆ",
+    "edit_category": "Խմբագրել կատեգորիան",
+    "delete_category": "Ջնջել կատեգորիան"
+  },
   "category_table": {
     "image": "Նկար",
     "title": "Վերնագիր",
     "ordering": "Հերթականություն",
-    "edit": "Խմբագ..",
+    "edit": "Խմբագրել",
     "delete": "Ջնջել",
-    "add_category": "Ավելացնել կատեգորիա",
-    "create_category": "Ստեղծել կատեգորիա"
+    "add_category": "Ավելացնել Կատեգորիա",
+    "create_category": "Ստեղծել Կատեգորիա"
   },
   "category_management": {
     "armenian": "Հայկական",

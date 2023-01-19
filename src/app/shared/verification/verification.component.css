@@ -38,6 +38,7 @@
   min-width: 422px;
   display: flex;
   justify-content: center;
+  overflow-y: auto;
 }
 .will_learn{
   margin: 0;

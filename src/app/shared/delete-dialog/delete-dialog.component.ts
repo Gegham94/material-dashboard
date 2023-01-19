@@ -57,6 +57,10 @@ export class DeleteDialogComponent implements OnInit {
         this.dialogRef.close(true);
       });
     }
+    if (this._data.delete_item === 'CATEGORY' || this._data.delete_item === 'ԿԱՏԵԳՈՐԻԱՆ') {
+      this.isLoadingButton = false;
+      this.dialogRef.close(true);
+    }
   }
 
   public closeDialog() {

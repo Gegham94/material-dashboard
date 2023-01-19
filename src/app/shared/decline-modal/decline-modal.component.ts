@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ApproveService} from "../services/approve/approve.service";
+import {FormControl, FormGroup} from "@angular/forms";
+import {ApproveService} from "../../core/services/approve.service";
 import {ToastrMessageService} from "../../core/services/toastr.service";
 
 @Component({

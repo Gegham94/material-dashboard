@@ -1,5 +1,5 @@
 <li class="nav-item dropdown notification-block">
-  <a class="nav-link" id="navbarDropdownMenuLink" (click)="fetchData()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link my_notification" id="navbarDropdownMenuLink" (click)="fetchData()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="material-icons">notifications</i>
     <span *ngIf="unreadCount > 0" class="notification"></span>
     <p>
@@ -9,8 +9,8 @@
   <div class="dropdown-menu dropdown-menu-right notification-block__list" aria-labelledby="navbarDropdownMenuLink" >
     <div class="notification-block__header">
       <div class="notification-block__header-first">
-        <p class="notification-block__title">Notifications</p>
-        <span>Unread {{unreadCount}}</span>
+        <p class="notification-block__title">{{"global.header.header-notification.notifications" | translate}}</p>
+        <span>{{"global.header.header-notification.unread" | translate}} {{unreadCount}}</span>
       </div>
       <p class="notification-block__mark-read"
         (click)="markAllRead($event)">{{ 'global.header.header-notification.mark-all' | translate }}</p>
@@ -24,12 +24,14 @@
         </div>
       </ng-container>
       <ng-template #notData>
-        {{ 'global.header.header-notification.no-notifications' | translate }}
+        <span class="d-flex justify-content-center">
+          {{ 'global.header.header-notification.no-notifications' | translate }}
+        </span>
       </ng-template>
 
     </ng-container>
     <ng-template #loaderBlock>
-      <div class="notification-block__loader">
+      <div class="loader-block">
         <mat-spinner></mat-spinner>
       </div>
     </ng-template>

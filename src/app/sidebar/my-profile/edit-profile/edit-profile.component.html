@@ -5,20 +5,23 @@
         <div class="profile_form">
           <div class="avatar-upload">
             <div class="avatar-edit">
-              <input type="file" formControlName="avatar" id="imageUpload" accept=".png, .jpg, .jpeg .svg .webp"
-                #fileInput (change)="uploadFile($event)" />
+              <input type="file" formControlName="avatar" accept=".png, .jpg, .jpeg .svg .webp"
+                #fileInput (change)="uploadImage($event)" />
             </div>
             <div class="avatar-preview">
-              <div id="imagePreview" *ngIf="imageUrl===''; else selectedImage"
+              <div *ngIf="imageUrl===''; else selectedImage"
                 style.backgroundImage="{{userData.avatar ? 'url('+ userData.avatar +')' : 'url(/assets/img/default-avatar.png)' }}">
               </div>
               <ng-template #selectedImage>
-                <div id="imagePreview" style.backgroundImage="{{'url('+ imageUrl +')'}}">
-                </div>
+                <a class="btn btn-link btn-danger btn-just-icon remove_image" (click)="removeImage()"><i
+                  class="material-icons row_action">cancel</i></a>
+                <div style.backgroundImage="{{'url('+ imageUrl +')'}}"></div>
               </ng-template>
             </div>
             <a class="btn btn-just-icon btn-success upload_img_icon" (click)="fileInput.click()"><i
-                class="material-icons row_action">file_upload</i></a>
+                class="material-icons row_action" pTooltip="{{'user.profile.image_upload' | translate}}"
+                tooltipPosition="top">file_upload</i>
+            </a>
           </div>
           <div class="profile-settings">
             <mat-form-field>
@@ -33,9 +36,17 @@
               <mat-label>{{'user.table.email' | translate}}</mat-label>
               <input formControlName="email" matInput />
             </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{'user.profile.company' | translate}}</mat-label>
+              <input formControlName="company_name" matInput />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{'user.profile.phone' | translate}}</mat-label>
+              <input formControlName="phone" matInput />
+            </mat-form-field>
           </div>
         </div>
-  
+
         <div class="save-content">
           <div class="save-btn" [ngClass]="{'disabled':!profileForm.valid}">
             <button class="btn btn-success save" [disabled]="!profileForm.valid">

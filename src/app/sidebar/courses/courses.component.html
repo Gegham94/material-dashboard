@@ -65,22 +65,22 @@
                     </td>
                     <td *ngIf="row.type">
                       <span class="type_style" *ngIf="row.type === courseTypes.ONLINE"
-                        [style]="{ 'background-color': '#C585FF' }"
+                        [style]="{ 'background-color': '#C597FF' }"
                       >
                         {{online}}
                       </span>
                       <span class="type_style" *ngIf="row.type === courseTypes.OFFLINE"
-                        [style]="{ 'background-color': '#A5A6F6' }"
+                        [style]="{ 'background-color': '#A5A9F6' }"
                       >
                         {{offline}}
                       </span>
                       <span class="type_style" *ngIf="row.type === courseTypes.ONLINE_WEBINAR"
-                        [style]="{ 'background-color': '#b05ffc' }"
+                        [style]="{ 'background-color': '#b03ffc' }"
                       >
                         {{onlineWebinar}}
                       </span>
                       <span class="type_style" *ngIf="row.type === courseTypes.CONSULTATION"
-                        [style]="{ 'background-color': '#8587fd' }"
+                        [style]="{ 'background-color': '#8567fd' }"
                       >
                         {{consultation}}
                       </span>
@@ -102,12 +102,12 @@
                         {{approved}}
                       </span>
                       <span class="status_style" *ngIf="row.status=== courseStatus.DECLINED"
-                        [style]="{ 'background-color': 'rgb(201, 70, 30)' }"
+                        [style]="{ 'background-color': 'rgba(223, 86, 45, 0.99)' }"
                       >
                         {{declined}}
                       </span>
                       <span class="status_style" *ngIf="row.status=== courseStatus.DELETED"
-                        [style]="{ 'background-color': 'rgba(228, 17, 17, 0.719)' }"
+                        [style]="{ 'background-color': 'rgba(228, 17, 17, 0.555)' }"
                       >
                         {{deleted}}
                       </span>

@@ -63,7 +63,7 @@
     "company-trainers": "Company trainers",
     "all-notifications": "All Notifications",
     "baskets": "Baskets",
-    "wishlist": "wishlists"
+    "wishlist": "Wishlists"
   },
   "auth": {
     "login": {
@@ -120,6 +120,7 @@
       "phone": "Phone",
       "role": "Role",
       "profile_info": "Profile information",
+      "image_upload": "Upload profile image",
       "edit_profile": "Edit profile",
       "change_password": "Change password",
       "current_password": "Current password",
@@ -162,6 +163,11 @@
     "search_user": "Search User",
     "add_user": "Add User",
     "delete_user": "Delete User"
+  },
+  "category": {
+    "category": "CATEGORY",
+    "edit_category": "Edit Category",
+    "delete_category": "Delete Category"
   },
   "category_table": {
     "image": "Image",

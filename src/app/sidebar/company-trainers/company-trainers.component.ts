@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { TranslatedTitleService } from '../../shared/services/translated-title.service';
+import { TranslatedTitleService } from '../../shared/shared-services/translated-title.service';
 import { TrainersService } from 'src/app/core/services/trainers.service';
 import { Trainers } from 'src/app/core/interfaces/trainers';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, pluck } from 'rxjs';

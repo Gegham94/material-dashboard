@@ -1,8 +1,9 @@
 .loader-block {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
 }
 ::ng-deep.mat-progress-spinner {
   width: 50px !important;
